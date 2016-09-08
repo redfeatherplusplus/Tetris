@@ -1,4 +1,4 @@
-package tetrominos;
+package entities.blocks.tetrominos;
 
 import java.awt.Color;
 import java.awt.Point;
