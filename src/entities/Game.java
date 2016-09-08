@@ -20,6 +20,7 @@ public class Game {
 
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 20;
+	public static final int TETROMINO_WIDTH = 2;
 	
     //game data
 	private Block[][] blocks;
@@ -41,7 +42,7 @@ public class Game {
 		blocks = new Block[HEIGHT][WIDTH];
 		bag = new ArrayList<Tetromino>();
 		
-		start = new Point(HEIGHT, WIDTH / 2 - 2);
+		start = new Point(HEIGHT, WIDTH / 2 - TETROMINO_WIDTH);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
 		
