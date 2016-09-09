@@ -75,6 +75,9 @@ public abstract class Tetromino {
 	}
 
 	//getters and setters
+	public Block[] getBlocks() {
+		return blocks;
+	}
 	public Point getPosition() { 
 		return position; 
 	}
