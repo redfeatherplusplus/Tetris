@@ -55,7 +55,7 @@ public abstract class Tetromino {
 	public void moveRight() { position.x++; }
 	public void moveDown() { position.y++; }
 	public void moveLeft() { position.x--; }
-	public void rotate() 
+	public void rotateClockWise() 
 	{
 		switch(orientation)
 		{
@@ -70,6 +70,24 @@ public abstract class Tetromino {
 				break;
 			case LEFT:
 				setOrientation(Orientation.UP);
+				break;
+		}
+	}
+	public void rotateCounterClockWise() 
+	{
+		switch(orientation)
+		{
+			case UP:
+				setOrientation(Orientation.LEFT);
+				break;
+			case RIGHT:
+				setOrientation(Orientation.UP);
+				break;
+			case DOWN:
+				setOrientation(Orientation.RIGHT);
+				break;
+			case LEFT:
+				setOrientation(Orientation.DOWN);
 				break;
 		}
 	}
