@@ -51,9 +51,9 @@ public abstract class Tetromino {
 	protected abstract void initializeBlocks();
 	
 	//block manipulation methods
-	public void moveUp() { position.y++; }
+	public void moveUp() { position.y--; }
 	public void moveRight() { position.x++; }
-	public void moveDown() { position.y--; }
+	public void moveDown() { position.y++; }
 	public void moveLeft() { position.x--; }
 	public void rotate() 
 	{

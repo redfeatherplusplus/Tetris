@@ -14,9 +14,9 @@ public class Block {
 	}
 
 	//block manipulation methods
-	public void moveUp() { position.y++; }
+	public void moveUp() { position.y--; }
 	public void moveRight() { position.x++; }
-	public void moveDown() { position.y--; }
+	public void moveDown() { position.y++; }
 	public void moveLeft() { position.x--; }
 	
 	//getters and setters

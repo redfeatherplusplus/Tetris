@@ -29,8 +29,8 @@ public class S_Mino extends Tetromino {
 				blocks[2].getPosition().x = 1;
 				blocks[3].getPosition().x = 0;
 				
-				blocks[0].getPosition().y = 2;
-				blocks[1].getPosition().y = 2;
+				blocks[0].getPosition().y = 0;
+				blocks[1].getPosition().y = 0;
 				blocks[2].getPosition().y = 1;
 				blocks[3].getPosition().y = 1;
 				break;
@@ -40,10 +40,10 @@ public class S_Mino extends Tetromino {
 				blocks[2].getPosition().x = 2;
 				blocks[3].getPosition().x = 2;
 				
-				blocks[0].getPosition().y = 2;
+				blocks[0].getPosition().y = 0;
 				blocks[1].getPosition().y = 1;
 				blocks[2].getPosition().y = 1;
-				blocks[3].getPosition().y = 0;
+				blocks[3].getPosition().y = 2;
 				break;
 			case DOWN:
 				blocks[0].getPosition().x = 0;
@@ -51,8 +51,8 @@ public class S_Mino extends Tetromino {
 				blocks[2].getPosition().x = 1;
 				blocks[3].getPosition().x = 2;
 				
-				blocks[0].getPosition().y = 0;
-				blocks[1].getPosition().y = 0;
+				blocks[0].getPosition().y = 2;
+				blocks[1].getPosition().y = 2;
 				blocks[2].getPosition().y = 1;
 				blocks[3].getPosition().y = 1;
 				break;
@@ -62,10 +62,10 @@ public class S_Mino extends Tetromino {
 				blocks[2].getPosition().x = 0;
 				blocks[3].getPosition().x = 0;
 				
-				blocks[0].getPosition().y = 0;
+				blocks[0].getPosition().y = 2;
 				blocks[1].getPosition().y = 1;
 				blocks[2].getPosition().y = 1;
-				blocks[3].getPosition().y = 2;
+				blocks[3].getPosition().y = 0;
 				break;
 		}
 	}

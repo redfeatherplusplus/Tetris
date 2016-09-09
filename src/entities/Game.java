@@ -42,7 +42,7 @@ public class Game {
 		blocks = new Block[HEIGHT][WIDTH];
 		bag = new ArrayList<Tetromino>();
 		
-		start = new Point(HEIGHT, WIDTH / 2 - TETROMINO_WIDTH);
+		start = new Point(0, WIDTH / 2 - TETROMINO_WIDTH);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
 		

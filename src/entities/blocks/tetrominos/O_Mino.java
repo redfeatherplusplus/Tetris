@@ -27,8 +27,8 @@ public class O_Mino extends Tetromino {
 		blocks[3].getPosition().x = 2;
 		
 		blocks[0].getPosition().y = 1;
-		blocks[1].getPosition().y = 2;
-		blocks[2].getPosition().y = 2;
+		blocks[1].getPosition().y = 0;
+		blocks[2].getPosition().y = 0;
 		blocks[3].getPosition().y = 1;
 	}
 
