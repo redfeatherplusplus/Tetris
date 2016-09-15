@@ -22,8 +22,7 @@ public class ActiveTetromino extends Component {
 	@Override
 	public void paint(Graphics g) {
 		Dimension d = getParent().getSize();
-		System.out.println("Size:" + d.width + ", " + d.height);
-		g.setColor(Color.GREEN);
+		g.setColor(active.getColor());
 		g.drawRect(1, 1, d.width - 3, d.height - 3);
 	}
 }

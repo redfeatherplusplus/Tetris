@@ -22,8 +22,7 @@ public class NextTetromino extends Component {
 	@Override
 	public void paint(Graphics g) {
 		Dimension d = getParent().getSize();
-		System.out.println("Size:" + d.width + ", " + d.height);
-		g.setColor(Color.BLUE);
+		g.setColor(next.getColor());
 		g.drawRect(2, 2, d.width - 5, d.height - 5);
 	}
 }

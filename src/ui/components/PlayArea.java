@@ -22,7 +22,6 @@ public class PlayArea extends Component {
 	@Override
 	public void paint(Graphics g) {
 		Dimension d = getParent().getSize();
-		System.out.println("Size:" + d.width + ", " + d.height);
 		g.setColor(Color.RED);
 		g.drawRect(0, 0, d.width - 1, d.height - 1);
 	}

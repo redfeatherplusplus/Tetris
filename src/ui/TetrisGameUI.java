@@ -1,11 +1,13 @@
 package ui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import api.Conversions;
 import entities.TetrisGame;
 import ui.components.ActiveTetromino;
 import ui.components.NextTetromino;
@@ -45,24 +47,34 @@ public class TetrisGameUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//set the logical and device drawing dimensions
+		Conversions.setLogicalDimensions(GAME_WIDTH, GAME_HEIGHT);
+		Conversions.setDeviceDimensions(contentPane.getSize());
+		
 		//start game
 		TetrisGame game = new TetrisGame();
 		
 		//add play area to UI
 		PlayArea playArea = new PlayArea(game);
-		playArea.setBounds(0, 0, getBounds().width, getBounds().height);
+		playArea.setBounds(0, 0, 
+				contentPane.getSize().width, 
+				contentPane.getSize().height);
 		contentPane.add(playArea);
 		
 		//add active tetromino to UI
 		ActiveTetromino activeTetromino = new ActiveTetromino(game);
-		activeTetromino.setBounds(0, 0, getBounds().width, getBounds().height);
+		activeTetromino.setBounds(0, 0, 
+				contentPane.getSize().width, 
+				contentPane.getSize().height);
 		contentPane.add(activeTetromino);
 		
 		//add next tetromino to UI
 		NextTetromino nextTetromino = new NextTetromino(game);
-		nextTetromino.setBounds(0, 0, getBounds().width, getBounds().height);
+		nextTetromino.setBounds(0, 0, 
+				contentPane.getSize().width, 
+				contentPane.getSize().height);
 		contentPane.add(nextTetromino);
-		
+
 		//TODO: add quit button to UI
 	}
 	
@@ -71,10 +83,15 @@ public class TetrisGameUI extends JFrame {
 	@Override
 	public void validate() {
 		super.validate();
+
+		//update the device drawing dimensions for the game
+		Conversions.setDeviceDimensions(contentPane.getSize());
 		
 		//update bounds of child components
 		for(Component component : contentPane.getComponents())
-			component.setBounds(0, 0, getBounds().width, getBounds().height);
+			component.setBounds(0, 0, 
+					contentPane.getSize().width, 
+					contentPane.getSize().height);
 	}
 	
 }
