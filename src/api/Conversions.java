@@ -4,43 +4,45 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 public class Conversions {
-	private static float logicalWidth = 0.f;
-	private static float logicalHeight = 0.f;
-	private static float pixelSize = 0.f;
-	private static int centerX = 0;
-	private static int centerY = 0;
+	public static float logicalWidth = 0.f;
+	public static float logicalHeight = 0.f;
+	public static float logicalCenterX = 0.f;
+	public static float logicalCenterY = 0.f;
+	public static float pixelSize = 0.f;
+	public static int deviceCenterX = 0;
+	public static int deviceCenterY = 0;
 	
 	public static void setLogicalDimensions(float logicalWidth, 
 			float logicalHeight) {
 		Conversions.logicalWidth = logicalWidth;
 		Conversions.logicalHeight = logicalHeight;
+		Conversions.logicalCenterX = logicalWidth / 2.f;
+		Conversions.logicalCenterY = logicalHeight / 2.f;
 	}
 	
 	public static void setDeviceDimensions(Dimension deviceSize) {
-		int maxX = deviceSize.width - 1;
-		int maxY = deviceSize.height - 1;
-		
 		Conversions.pixelSize = Math.max(
-				logicalWidth / maxX, 
-				logicalHeight / maxY);
-		Conversions.centerX = maxX >> 1;
-		Conversions.centerY = maxY >> 1;
+				logicalWidth / deviceSize.width, 
+				logicalHeight / deviceSize.width);
+		
+		Conversions.deviceCenterX = deviceSize.width >> 1;
+		Conversions.deviceCenterY = deviceSize.width >> 1;
 	}
 	
 	public static int toDeviceX(float x) {
-		return Math.round(centerX + x / pixelSize);
+		return Math.round(deviceCenterX - (x + logicalCenterX) / pixelSize);
 	}
 	
 	public static int toDeviceY(float y) {
-		return Math.round(centerY - y / pixelSize);
+		return Math.round(deviceCenterY - (y + logicalCenterY) / pixelSize);
 	}
 	
 	public static float toLogicalX(float x) {
-		return (x - centerX) * pixelSize;
+		return (x - deviceCenterX) * pixelSize;
 	}
 	
 	public static float toLogicalY(float y) {
-		return (centerY - y) * pixelSize;
+		return (y- deviceCenterY) * pixelSize;
 	}
 	
 	public static Point toDevice(PointF point) {

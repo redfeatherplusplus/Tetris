@@ -66,14 +66,14 @@ public class TetrisGameUI extends JFrame {
 		activeTetromino.setBounds(0, 0, 
 				contentPane.getSize().width, 
 				contentPane.getSize().height);
-		contentPane.add(activeTetromino);
+		//contentPane.add(activeTetromino);
 		
 		//add next tetromino to UI
 		NextTetromino nextTetromino = new NextTetromino(game);
 		nextTetromino.setBounds(0, 0, 
 				contentPane.getSize().width, 
 				contentPane.getSize().height);
-		contentPane.add(nextTetromino);
+		//contentPane.add(nextTetromino);
 
 		//TODO: add quit button to UI
 	}
