@@ -5,15 +5,19 @@ import java.awt.Point;
 
 public class Block {
 	
-	public static final int PIXEL_SIZE = 24;
-	
 	private Point position;
 	private Color color;
 	
 	public Block()
 	{
 		this.position = new Point();
-		this.color = new Color(0);
+		this.color = new Color(128, 128, 128);
+	}
+	
+	public Block(Point position, Color color)
+	{
+		this.position = position;
+		this.color = color;
 	}
 
 	//block manipulation methods

@@ -1,16 +1,15 @@
 package ui.components;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import javax.swing.JButton;
-
 import api.Conversions;
 
-public class QuitButton extends JButton {
+public class QuitButton extends Component {
 	
-	private static final long serialVersionUID = -5180708318115475444L;
+	private static final long serialVersionUID = 3692741696342705655L;
 	
 	private static final int OFFSET_X = 272;
 	private static final int OFFSET_Y = 472;
@@ -22,10 +21,10 @@ public class QuitButton extends JButton {
 			WIDTH + 4 - 1,
 			HEIGHT + 4 - 1);
 	
-	public QuitButton(String text) {
-		super(text);
+	public QuitButton() { 
+		super();
 	}
-
+	
 	@Override
 	public void paint(Graphics graphics) {
 		Conversions.drawRect(graphics, FRAME, Color.BLACK);

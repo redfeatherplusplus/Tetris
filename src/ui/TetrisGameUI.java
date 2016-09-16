@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import api.Conversions;
+import entities.RenderingDemo;
 import entities.TetrisGame;
 import ui.components.ActiveTetromino;
 import ui.components.GameBorder;
@@ -17,6 +18,9 @@ import ui.components.QuitButton;
 import ui.components.ScoreIndicator;
 
 import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TetrisGameUI extends JFrame {
 
@@ -56,8 +60,8 @@ public class TetrisGameUI extends JFrame {
 		Conversions.setLogicalDimensions(GAME_WIDTH, GAME_HEIGHT);
 		Conversions.setDeviceDimensions(contentPane.getSize());
 		
-		//start game
-		TetrisGame game = new TetrisGame();
+		//start the game
+		TetrisGame game = new RenderingDemo();
 
 		//create game UI components
 		PlayArea playArea = new PlayArea(game);
@@ -65,7 +69,7 @@ public class TetrisGameUI extends JFrame {
 		ActiveTetromino activeTetromino = new ActiveTetromino(game);
 		NextTetromino nextTetromino = new NextTetromino(game);
 		GameBorder border = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
-		QuitButton quitButton = new QuitButton("Quit");
+		QuitButton quitButton = new QuitButton();
 		
 		//add each component to the UI
 		contentPane.add(playArea);
@@ -75,7 +79,6 @@ public class TetrisGameUI extends JFrame {
 		contentPane.add(border);
 		contentPane.add(quitButton);
 	}
-	
 	
 	//called on each resize
 	@Override

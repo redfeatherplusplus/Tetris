@@ -70,4 +70,19 @@ public class Conversions {
 		graphics.setColor(color);
 		drawRect(graphics, rect);
 	}
+	
+	public static void fillRect(Graphics graphics, 
+			Rectangle rect) {
+		graphics.fillRect(
+				toDeviceX(rect.x),
+				toDeviceY(rect.y),
+				Math.round(rect.width / pixelSize),
+				Math.round(rect.height / pixelSize));
+	}
+	
+	public static void fillRect(Graphics graphics, 
+			Rectangle rect, Color color) {
+		graphics.setColor(color);
+		fillRect(graphics, rect);
+	}
 }

@@ -23,56 +23,28 @@ public class TetrisGame {
 	public static final int TETROMINO_WIDTH = 2;
 	
     //game data
-	private Block[][] playArea;
-	private List<Tetromino> bag;
+	protected Block[][] playArea;
+	protected List<Tetromino> bag;
 	
 	//tetromino game data
-	private Point start;
-	private Tetromino active;
-	private Tetromino next;
+	protected Point start;
+	protected Tetromino active;
+	protected Tetromino next;
 	
 	//metagame data
-	private int level;
-	private int lines;
-	private int score;
-	private boolean paused;
+	protected int level;
+	protected int lines;
+	protected int score;
+	protected boolean paused;
 	
 	//default constructor
 	public TetrisGame() {
-		playArea = new Block[PLAY_AREA_HEIGHT][PLAY_AREA_WIDTH];
+		playArea = new Block[PLAY_AREA_WIDTH][PLAY_AREA_HEIGHT];
 		bag = new ArrayList<Tetromino>();
 		
 		start = new Point(0, PLAY_AREA_WIDTH / 2 - TETROMINO_WIDTH);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
-		
-		level = 1;
-		lines = 0;
-		score = 0;
-		paused = true;
-	}
-	
-	//constructor with specified next and active pieces
-	public TetrisGame(Tetromino active, Tetromino next) {
-		playArea = new Block[PLAY_AREA_HEIGHT][PLAY_AREA_WIDTH];
-		bag = new ArrayList<Tetromino>();
-		
-		this.active = active;
-		this.next = next;
-		
-		level = 1;
-		lines = 0;
-		score = 0;
-		paused = true;
-	}
-	
-	//constructor with specified play area, next, active pieces
-	public TetrisGame(Block[][] playArea, Tetromino active, Tetromino next) {
-		this.playArea = playArea;
-		bag = new ArrayList<Tetromino>();
-		
-		this.active = active;
-		this.next = next;
 		
 		level = 1;
 		lines = 0;
