@@ -2,7 +2,6 @@ package ui.components;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import entities.TetrisGame;
@@ -20,9 +19,7 @@ public class ActiveTetromino extends Component {
 	}
 	
 	@Override
-	public void paint(Graphics g) {
-		Dimension d = getParent().getSize();
-		g.setColor(active.getColor());
-		g.drawRect(1, 1, d.width - 3, d.height - 3);
+	public void paint(Graphics graphics) {
+		graphics.setColor(active.getColor());
 	}
 }

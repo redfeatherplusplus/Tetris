@@ -18,9 +18,9 @@ import entities.blocks.tetrominos.Z_Mino;
 
 public class TetrisGame {
 
-	public static final int PLAY_AREA_BLOCK_WIDTH = 10;
-	public static final int PLAY_AREA_BLOCK_HEIGHT = 20;
-	public static final int TETROMINO_BLOCK_WIDTH = 2;
+	public static final int PLAY_AREA_WIDTH = 10;
+	public static final int PLAY_AREA_HEIGHT = 20;
+	public static final int TETROMINO_WIDTH = 2;
 	
     //game data
 	private Block[][] playArea;
@@ -39,10 +39,10 @@ public class TetrisGame {
 	
 	//default constructor
 	public TetrisGame() {
-		playArea = new Block[PLAY_AREA_BLOCK_HEIGHT][PLAY_AREA_BLOCK_WIDTH];
+		playArea = new Block[PLAY_AREA_HEIGHT][PLAY_AREA_WIDTH];
 		bag = new ArrayList<Tetromino>();
 		
-		start = new Point(0, PLAY_AREA_BLOCK_WIDTH / 2 - TETROMINO_BLOCK_WIDTH);
+		start = new Point(0, PLAY_AREA_WIDTH / 2 - TETROMINO_WIDTH);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
 		
@@ -54,7 +54,7 @@ public class TetrisGame {
 	
 	//constructor with specified next and active pieces
 	public TetrisGame(Tetromino active, Tetromino next) {
-		playArea = new Block[PLAY_AREA_BLOCK_HEIGHT][PLAY_AREA_BLOCK_WIDTH];
+		playArea = new Block[PLAY_AREA_HEIGHT][PLAY_AREA_WIDTH];
 		bag = new ArrayList<Tetromino>();
 		
 		this.active = active;
@@ -108,8 +108,8 @@ public class TetrisGame {
 			int y = tetromino.getPosition().y + block.getPosition().y;
 			
 			//check if this location is in the play area
-			if (x < 0 || x > PLAY_AREA_BLOCK_WIDTH - 1 ||
-				y < 0 || y > PLAY_AREA_BLOCK_HEIGHT - 1) {
+			if (x < 0 || x > PLAY_AREA_WIDTH - 1 ||
+				y < 0 || y > PLAY_AREA_HEIGHT - 1) {
 				return false;
 			}
 		}

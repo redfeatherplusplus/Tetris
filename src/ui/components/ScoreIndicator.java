@@ -5,30 +5,28 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import api.Conversions;
 import entities.TetrisGame;
-import entities.blocks.Tetromino;
+import api.Conversions;
 
-public class NextTetromino extends Component {
+public class ScoreIndicator extends Component {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -7888415274711525286L;
+
 	private static final int OFFSET_X = 272;
-	private static final int OFFSET_Y = 16;
+	private static final int OFFSET_Y = 112;
 	private static final int WIDTH = 128;
-	private static final int HEIGHT = 80;
+	private static final int HEIGHT = 192;
 	private static final Rectangle FRAME = new Rectangle(
 			OFFSET_X - 2, 
 			OFFSET_Y - 2, 
 			WIDTH + 4 - 1,
 			HEIGHT + 4 - 1);
 	
-	private Tetromino next;
+	private TetrisGame game;
 	
-	//constructor with TetrisGame argument
-	public NextTetromino(TetrisGame game) {
-		next = game.getNext();
-		
+	//constructor with width and height argument
+	public ScoreIndicator(TetrisGame game) {
+		this.game = game;
 	}
 	
 	@Override

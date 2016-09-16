@@ -1,7 +1,10 @@
 package api;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Conversions {
 	public static float logicalWidth = 0.f;
@@ -23,18 +26,18 @@ public class Conversions {
 	public static void setDeviceDimensions(Dimension deviceSize) {
 		Conversions.pixelSize = Math.max(
 				logicalWidth / deviceSize.width, 
-				logicalHeight / deviceSize.width);
+				logicalHeight / deviceSize.height);
 		
 		Conversions.deviceCenterX = deviceSize.width >> 1;
-		Conversions.deviceCenterY = deviceSize.width >> 1;
+		Conversions.deviceCenterY = deviceSize.height >> 1;
 	}
 	
 	public static int toDeviceX(float x) {
-		return Math.round(deviceCenterX - (x + logicalCenterX) / pixelSize);
+		return Math.round(deviceCenterX - (-x + logicalCenterX) / pixelSize);
 	}
 	
 	public static int toDeviceY(float y) {
-		return Math.round(deviceCenterY - (y + logicalCenterY) / pixelSize);
+		return Math.round(deviceCenterY - (-y + logicalCenterY) / pixelSize);
 	}
 	
 	public static float toLogicalX(float x) {
@@ -51,5 +54,20 @@ public class Conversions {
 	
 	public static PointF toLogical(Point point) {
 		return new PointF(toLogicalX(point.x), toLogicalY(point.y));
+	}
+	
+	public static void drawRect(Graphics graphics, 
+			Rectangle rect) {
+		graphics.drawRect(
+				toDeviceX(rect.x),
+				toDeviceY(rect.y),
+				Math.round(rect.width / pixelSize),
+				Math.round(rect.height / pixelSize));
+	}
+	
+	public static void drawRect(Graphics graphics, 
+			Rectangle rect, Color color) {
+		graphics.setColor(color);
+		drawRect(graphics, rect);
 	}
 }

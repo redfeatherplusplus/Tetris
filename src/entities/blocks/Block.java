@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Point;
 
 public class Block {
+	
+	public static final int PIXEL_SIZE = 24;
+	
 	private Point position;
 	private Color color;
 	

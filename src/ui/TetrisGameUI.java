@@ -10,8 +10,13 @@ import javax.swing.JPanel;
 import api.Conversions;
 import entities.TetrisGame;
 import ui.components.ActiveTetromino;
+import ui.components.GameBorder;
 import ui.components.NextTetromino;
 import ui.components.PlayArea;
+import ui.components.QuitButton;
+import ui.components.ScoreIndicator;
+
+import javax.swing.JButton;
 
 public class TetrisGameUI extends JFrame {
 
@@ -53,29 +58,22 @@ public class TetrisGameUI extends JFrame {
 		
 		//start game
 		TetrisGame game = new TetrisGame();
-		
-		//add play area to UI
-		PlayArea playArea = new PlayArea(game);
-		playArea.setBounds(0, 0, 
-				contentPane.getSize().width, 
-				contentPane.getSize().height);
-		contentPane.add(playArea);
-		
-		//add active tetromino to UI
-		ActiveTetromino activeTetromino = new ActiveTetromino(game);
-		activeTetromino.setBounds(0, 0, 
-				contentPane.getSize().width, 
-				contentPane.getSize().height);
-		//contentPane.add(activeTetromino);
-		
-		//add next tetromino to UI
-		NextTetromino nextTetromino = new NextTetromino(game);
-		nextTetromino.setBounds(0, 0, 
-				contentPane.getSize().width, 
-				contentPane.getSize().height);
-		//contentPane.add(nextTetromino);
 
-		//TODO: add quit button to UI
+		//create game UI components
+		PlayArea playArea = new PlayArea(game);
+		ScoreIndicator scoreIndicator = new ScoreIndicator(game);
+		ActiveTetromino activeTetromino = new ActiveTetromino(game);
+		NextTetromino nextTetromino = new NextTetromino(game);
+		GameBorder border = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
+		QuitButton quitButton = new QuitButton("Quit");
+		
+		//add each component to the UI
+		contentPane.add(playArea);
+		contentPane.add(scoreIndicator);
+		contentPane.add(activeTetromino);
+		contentPane.add(nextTetromino);
+		contentPane.add(border);
+		contentPane.add(quitButton);
 	}
 	
 	
@@ -93,5 +91,4 @@ public class TetrisGameUI extends JFrame {
 					contentPane.getSize().width, 
 					contentPane.getSize().height);
 	}
-	
 }
