@@ -28,8 +28,8 @@ public class RenderingDemo extends TetrisGame {
 		playArea[8][19] = new Block(new Point(8, 19), J_Mino.COLOR);
 		playArea[9][19] = new Block(new Point(9, 19), J_Mino.COLOR);
 		
-		//note: need to eliminate the redundancy of information from block to
-		//play area somehow. Considering removing position from blocks.
+		//note: need to eliminate the block to play area position
+		//redundancy somehow. Considering removing position from blocks.
 		
 		//set active and next tetrominos
 		active = new O_Mino(start);

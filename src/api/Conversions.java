@@ -33,11 +33,11 @@ public class Conversions {
 	}
 	
 	public static int toDeviceX(float x) {
-		return Math.round(deviceCenterX - (-x + logicalCenterX) / pixelSize);
+		return Math.round(deviceCenterX + (x - logicalCenterX) / pixelSize);
 	}
 	
 	public static int toDeviceY(float y) {
-		return Math.round(deviceCenterY - (-y + logicalCenterY) / pixelSize);
+		return Math.round(deviceCenterY + (y - logicalCenterY) / pixelSize);
 	}
 	
 	public static float toLogicalX(float x) {
@@ -56,33 +56,84 @@ public class Conversions {
 		return new PointF(toLogicalX(point.x), toLogicalY(point.y));
 	}
 	
-	public static void drawRect(Graphics graphics, 
-			Rectangle rect) {
-		graphics.drawRect(
-				toDeviceX(rect.x),
-				toDeviceY(rect.y),
-				Math.round(rect.width / pixelSize),
-				Math.round(rect.height / pixelSize));
+	//draws a rectangle or that rectangle padded by 0.5f
+	public static void drawRect(Graphics graphics, Rectangle rect, boolean continuous) {
+		if (continuous) {
+			//note: we pad by 0.5f to remove the one logical pixel distance 
+			//caused by using discrete points in the logical coordinate system
+			graphics.drawRect(
+					toDeviceX(rect.x - 0.5f),
+					toDeviceY(rect.y - 0.5f),
+					Math.round((rect.width + 1.0f) / pixelSize),
+					Math.round((rect.height + 1.0f) / pixelSize));
+		}
+		else {
+			graphics.drawRect(
+					toDeviceX(rect.x),
+					toDeviceY(rect.y),
+					Math.round(rect.width / pixelSize),
+					Math.round(rect.height / pixelSize));
+		}
 	}
 	
+	//sets color, then draws a rectangle or that rectangle padded by 0.5f
+	public static void drawRect(Graphics graphics, 
+			Rectangle rect, Color color, boolean continuous) {
+		graphics.setColor(color);
+		drawRect(graphics, rect, continuous);
+	}
+		
+	//sets color, then draws a rectangle padded by 0.5f
 	public static void drawRect(Graphics graphics, 
 			Rectangle rect, Color color) {
 		graphics.setColor(color);
-		drawRect(graphics, rect);
+		drawRect(graphics, rect, true);
 	}
 	
-	public static void fillRect(Graphics graphics, 
+	//draws a rectangle padded by 0.5f
+	public static void drawRect(Graphics graphics, 
 			Rectangle rect) {
-		graphics.fillRect(
-				toDeviceX(rect.x),
-				toDeviceY(rect.y),
-				Math.round(rect.width / pixelSize),
-				Math.round(rect.height / pixelSize));
+		drawRect(graphics, rect, true);
+	}
+
+	//fills a rectangle or that rectangle padded by 0.5f
+	public static void fillRect(Graphics graphics, Rectangle rect, boolean continuous) {
+		if (continuous) {
+			//note: we pad by 0.5f to remove the one logical pixel distance 
+			//caused by using discrete points in the logical coordinate system
+			graphics.fillRect(
+					toDeviceX(rect.x - 0.5f),
+					toDeviceY(rect.y - 0.5f),
+					Math.round((rect.width + 1.0f) / pixelSize),
+					Math.round((rect.height + 1.0f) / pixelSize));
+		}
+		else {
+			graphics.fillRect(
+					toDeviceX(rect.x),
+					toDeviceY(rect.y),
+					Math.round(rect.width / pixelSize),
+					Math.round(rect.height / pixelSize));
+		}
 	}
 	
+	//sets color, then fills a rectangle or that rectangle padded by 0.5f
+	public static void fillRect(Graphics graphics, 
+			Rectangle rect, Color color, boolean continuous) {
+		graphics.setColor(color);
+		fillRect(graphics, rect, continuous);
+	}
+	
+	//sets color, then fills a rectangle padded by 0.5f
 	public static void fillRect(Graphics graphics, 
 			Rectangle rect, Color color) {
 		graphics.setColor(color);
-		fillRect(graphics, rect);
+		fillRect(graphics, rect, true);
+	}
+	
+	//fills a rectangle padded by 0.5f
+	public static void fillRect(Graphics graphics, 
+			Rectangle rect) {
+		//draw continuously as default
+		fillRect(graphics, rect, true);
 	}
 }

@@ -20,6 +20,7 @@ public class GameBorder extends Component {
 	
 	@Override
 	public void paint(Graphics graphics) {
-		Conversions.drawRect(graphics, border, Color.BLACK);
+		//the game border is a discrete construct
+		Conversions.drawRect(graphics, border, false);
 	}
 }
