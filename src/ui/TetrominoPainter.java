@@ -1,0 +1,39 @@
+package ui;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+
+import ui.components.PlayArea;
+import api.Conversions;
+import entities.blocks.Block;
+import entities.blocks.Tetromino;
+
+public class TetrominoPainter {
+	
+	public static void paint(Graphics graphics, Tetromino tetromino, 
+			int offsetX, int offsetY) {
+		//check if Tetromino exists
+		if (null != tetromino) {
+			for(Block block : tetromino.getBlocks()) {
+				
+				Point blockOffset = new Point(
+						tetromino.getPosition().x + block.getPosition().x,
+						tetromino.getPosition().y + block.getPosition().y);
+				
+				Rectangle rect = new Rectangle(
+						offsetX + blockOffset.x * BlockPainter.PIXEL_SIZE,
+						offsetY + blockOffset.y * BlockPainter.PIXEL_SIZE,
+						BlockPainter.PIXEL_SIZE - 1,
+						BlockPainter.PIXEL_SIZE - 1);
+				
+				graphics.setColor(block.getColor());
+				Conversions.fillRect(graphics, rect);
+				
+				graphics.setColor(Color.BLACK);
+				Conversions.drawRect(graphics, rect);
+			}
+		}
+	}
+}

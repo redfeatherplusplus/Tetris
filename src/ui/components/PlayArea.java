@@ -14,11 +14,11 @@ public class PlayArea extends Component {
 	
 	private static final long serialVersionUID = 6479917092059257798L;
 	
-	private static final int OFFSET_X = 16;
-	private static final int OFFSET_Y = 16;
-	private static final int WIDTH = 240;
-	private static final int HEIGHT = 480;
-	private static final Rectangle FRAME = new Rectangle(
+	public static final int OFFSET_X = 16;
+	public static final int OFFSET_Y = 16;
+	public static final int WIDTH = 240;
+	public static final int HEIGHT = 480;
+	public static final Rectangle FRAME = new Rectangle(
 			OFFSET_X - 2, 
 			OFFSET_Y - 2, 
 			WIDTH + 4 - 1,

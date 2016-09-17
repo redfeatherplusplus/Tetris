@@ -64,20 +64,21 @@ public class TetrisGameUI extends JFrame {
 		TetrisGame game = new RenderingDemo();
 
 		//create game UI components
+		GameBorder gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
 		PlayArea playArea = new PlayArea(game);
-		ScoreIndicator scoreIndicator = new ScoreIndicator(game);
 		ActiveTetromino activeTetromino = new ActiveTetromino(game);
 		NextTetromino nextTetromino = new NextTetromino(game);
-		GameBorder border = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
+		ScoreIndicator scoreIndicator = new ScoreIndicator(game);
 		QuitButton quitButton = new QuitButton();
 		
 		//add each component to the UI
-		contentPane.add(playArea);
-		contentPane.add(scoreIndicator);
-		contentPane.add(activeTetromino);
-		contentPane.add(nextTetromino);
-		contentPane.add(border);
+		//these are rendered in LIFO order
 		contentPane.add(quitButton);
+		contentPane.add(scoreIndicator);
+		contentPane.add(nextTetromino);
+		contentPane.add(activeTetromino);
+		contentPane.add(playArea);
+		contentPane.add(gameBorder);
 	}
 	
 	//called on each resize

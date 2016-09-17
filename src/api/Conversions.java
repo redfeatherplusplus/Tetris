@@ -45,7 +45,7 @@ public class Conversions {
 	}
 	
 	public static float toLogicalY(float y) {
-		return (y- deviceCenterY) * pixelSize;
+		return (y - deviceCenterY) * pixelSize;
 	}
 	
 	public static Point toDevice(PointF point) {
@@ -57,8 +57,8 @@ public class Conversions {
 	}
 	
 	//draws a rectangle or that rectangle padded by 0.5f
-	public static void drawRect(Graphics graphics, Rectangle rect, boolean continuous) {
-		if (continuous) {
+	public static void drawRect(Graphics graphics, Rectangle rect, boolean padded) {
+		if (padded) {
 			//note: we pad by 0.5f to remove the one logical pixel distance 
 			//caused by using discrete points in the logical coordinate system
 			graphics.drawRect(
@@ -78,9 +78,9 @@ public class Conversions {
 	
 	//sets color, then draws a rectangle or that rectangle padded by 0.5f
 	public static void drawRect(Graphics graphics, 
-			Rectangle rect, Color color, boolean continuous) {
+			Rectangle rect, Color color, boolean padded) {
 		graphics.setColor(color);
-		drawRect(graphics, rect, continuous);
+		drawRect(graphics, rect, padded);
 	}
 		
 	//sets color, then draws a rectangle padded by 0.5f
@@ -97,8 +97,8 @@ public class Conversions {
 	}
 
 	//fills a rectangle or that rectangle padded by 0.5f
-	public static void fillRect(Graphics graphics, Rectangle rect, boolean continuous) {
-		if (continuous) {
+	public static void fillRect(Graphics graphics, Rectangle rect, boolean padded) {
+		if (padded) {
 			//note: we pad by 0.5f to remove the one logical pixel distance 
 			//caused by using discrete points in the logical coordinate system
 			graphics.fillRect(
@@ -118,9 +118,9 @@ public class Conversions {
 	
 	//sets color, then fills a rectangle or that rectangle padded by 0.5f
 	public static void fillRect(Graphics graphics, 
-			Rectangle rect, Color color, boolean continuous) {
+			Rectangle rect, Color color, boolean padded) {
 		graphics.setColor(color);
-		fillRect(graphics, rect, continuous);
+		fillRect(graphics, rect, padded);
 	}
 	
 	//sets color, then fills a rectangle padded by 0.5f

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
+import ui.TetrominoPainter;
 import entities.TetrisGame;
 import entities.blocks.Tetromino;
 
@@ -20,6 +21,8 @@ public class ActiveTetromino extends Component {
 	
 	@Override
 	public void paint(Graphics graphics) {
-		graphics.setColor(active.getColor());
+		TetrominoPainter.paint(graphics, active, 
+				PlayArea.OFFSET_X, 
+				PlayArea.OFFSET_Y);
 	}
 }

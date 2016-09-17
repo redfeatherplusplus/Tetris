@@ -42,7 +42,7 @@ public class TetrisGame {
 		playArea = new Block[PLAY_AREA_WIDTH][PLAY_AREA_HEIGHT];
 		bag = new ArrayList<Tetromino>();
 		
-		start = new Point(0, PLAY_AREA_WIDTH / 2 - TETROMINO_WIDTH);
+		start = new Point(PLAY_AREA_WIDTH / 2 - TETROMINO_WIDTH, 0);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
 		

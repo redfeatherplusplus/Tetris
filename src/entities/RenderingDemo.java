@@ -14,8 +14,6 @@ import entities.blocks.tetrominos.Z_Mino;
 public class RenderingDemo extends TetrisGame {
 	public RenderingDemo() {
 		//initialize play area
-		//note: we initialize block by block since once tetrominos
-		//land, they are no longer tetrominos, they are just blocks
 		playArea  = new Block[PLAY_AREA_WIDTH][PLAY_AREA_HEIGHT];
 		
 		playArea[7][18] = new Block(new Point(7, 18), S_Mino.COLOR);
@@ -28,12 +26,15 @@ public class RenderingDemo extends TetrisGame {
 		playArea[8][19] = new Block(new Point(8, 19), J_Mino.COLOR);
 		playArea[9][19] = new Block(new Point(9, 19), J_Mino.COLOR);
 		
-		//note: need to eliminate the block to play area position
-		//redundancy somehow. Considering removing position from blocks.
+		//note: we initialize block by block since once tetrominos
+		//land, they are no longer tetrominos, they are just blocks
 		
 		//set active and next tetrominos
 		active = new O_Mino(start);
 		next = new L_Mino(start);
+		
+		//move active tetromino down one
+		active.moveDown();
 		
 		//unpause the game
 		paused = false;

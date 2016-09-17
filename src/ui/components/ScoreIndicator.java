@@ -12,11 +12,11 @@ public class ScoreIndicator extends Component {
 	
 	private static final long serialVersionUID = -7888415274711525286L;
 
-	private static final int OFFSET_X = 272;
-	private static final int OFFSET_Y = 112;
-	private static final int WIDTH = 128;
-	private static final int HEIGHT = 192;
-	private static final Rectangle FRAME = new Rectangle(
+	public static final int OFFSET_X = 272;
+	public static final int OFFSET_Y = 112;
+	public static final int WIDTH = 128;
+	public static final int HEIGHT = 192;
+	public static final Rectangle FRAME = new Rectangle(
 			OFFSET_X - 2, 
 			OFFSET_Y - 2, 
 			WIDTH + 4 - 1,
