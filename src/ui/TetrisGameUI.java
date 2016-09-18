@@ -1,3 +1,9 @@
+// Author: Daren Cheng
+// Class: CS 6366
+// Date: 9/18/16
+//
+// Desc: Renders a Tetris game with minimal interaction.
+
 package ui;
 
 import java.awt.Component;
@@ -96,6 +102,7 @@ public class TetrisGameUI extends JFrame {
 
 	//adds mouse listeners and mouse pressed events to the content pane
 	public void addMouseEvents() {
+		
 		//this method should be removed in favor of each component
 		//handling its own mouse events. At the moment this cannot 
 		//done as component bound computation is not implemented
