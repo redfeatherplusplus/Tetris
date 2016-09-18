@@ -2,6 +2,7 @@ package ui.components;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -21,12 +22,21 @@ public class QuitButton extends Component {
 			WIDTH + 4 - 1,
 			HEIGHT + 4 - 1);
 	
+	private Font quitButtonFont;
+	
 	public QuitButton() { 
-		super();
+		quitButtonFont = new Font("Arial", Font.BOLD, 16);
 	}
 	
 	@Override
 	public void paint(Graphics graphics) {
 		Conversions.drawRect(graphics, FRAME, Color.BLACK);
+
+		graphics.setColor(Color.BLACK);
+		graphics.setFont(Conversions.toDevice(quitButtonFont));
+		
+		//note: the offset below is just a value I felt looked nice
+		
+		Conversions.drawString(graphics, "QUIT", OFFSET_X + 32, OFFSET_Y + 18);
 	}
 }

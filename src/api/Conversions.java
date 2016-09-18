@@ -2,6 +2,7 @@ package api;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -135,5 +136,19 @@ public class Conversions {
 			Rectangle rect) {
 		//draw continuously as default
 		fillRect(graphics, rect, true);
+	}
+	
+	//returns font in device coordinates
+	public static Font toDevice(Font font) {
+		return new Font(
+				font.getName(), 
+				font.getStyle(), 
+				Math.round(font.getSize() / pixelSize));
+	}
+	
+	//draws given string
+	public static void drawString(Graphics graphics,
+			String str, int offsetX, int offsetY) {
+		graphics.drawString(str, toDeviceX(offsetX), toDeviceY(offsetY));
 	}
 }

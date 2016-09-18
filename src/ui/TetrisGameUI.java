@@ -13,6 +13,7 @@ import entities.TetrisGame;
 import ui.components.ActiveTetromino;
 import ui.components.GameBorder;
 import ui.components.NextTetromino;
+import ui.components.PauseIndicator;
 import ui.components.PlayArea;
 import ui.components.QuitButton;
 import ui.components.ScoreIndicator;
@@ -69,11 +70,13 @@ public class TetrisGameUI extends JFrame {
 		ActiveTetromino activeTetromino = new ActiveTetromino(game);
 		NextTetromino nextTetromino = new NextTetromino(game);
 		ScoreIndicator scoreIndicator = new ScoreIndicator(game);
+		PauseIndicator pauseIndicator = new PauseIndicator(game);
 		QuitButton quitButton = new QuitButton();
 		
 		//add each component to the UI
 		//these are rendered in LIFO order
 		contentPane.add(quitButton);
+		contentPane.add(pauseIndicator);
 		contentPane.add(scoreIndicator);
 		contentPane.add(nextTetromino);
 		contentPane.add(activeTetromino);
