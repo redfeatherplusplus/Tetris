@@ -42,11 +42,11 @@ public class Conversions {
 	}
 	
 	public static float toLogicalX(float x) {
-		return (x - deviceCenterX) * pixelSize;
+		return (x - deviceCenterX) * pixelSize + logicalCenterX;
 	}
 	
 	public static float toLogicalY(float y) {
-		return (y - deviceCenterY) * pixelSize;
+		return (y - deviceCenterY) * pixelSize + logicalCenterY;
 	}
 	
 	public static Point toDevice(PointF point) {
@@ -56,6 +56,8 @@ public class Conversions {
 	public static PointF toLogical(Point point) {
 		return new PointF(toLogicalX(point.x), toLogicalY(point.y));
 	}
+	
+	//note: consider extracting methods below into a new class
 	
 	//draws a rectangle or that rectangle padded by 0.5f
 	public static void drawRect(Graphics graphics, Rectangle rect, boolean padded) {

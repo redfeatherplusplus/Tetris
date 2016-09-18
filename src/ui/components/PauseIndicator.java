@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import entities.TetrisGame;
 import api.Conversions;
@@ -23,6 +25,7 @@ public class PauseIndicator extends Component {
 	private Font pausedFont;
 	private Color pausedFontColor;
 	private Color playAreaOverlayColor;
+	private boolean hovered;
 	
 	public PauseIndicator(TetrisGame game) { 
 		this.game = game;
@@ -47,4 +50,18 @@ public class PauseIndicator extends Component {
 					PlayArea.OFFSET_Y + 232);
 		}
 	}
+	
+	//getters and setters
+	public void setHovered(boolean hovered) {
+		this.hovered = hovered;
+		
+		//change font style if hovered
+		if (hovered) {
+			game.setPaused(true);
+		}
+		else {
+			game.setPaused(false);
+		}
+	}
+	public boolean isHovered() { return hovered; }
 }

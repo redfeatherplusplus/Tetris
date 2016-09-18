@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import api.Conversions;
 
@@ -23,9 +26,11 @@ public class QuitButton extends Component {
 			HEIGHT + 4 - 1);
 	
 	private Font quitButtonFont;
+	private boolean hovered;
 	
 	public QuitButton() { 
 		quitButtonFont = new Font("Arial", Font.BOLD, 16);
+		hovered = false;
 	}
 	
 	@Override
@@ -39,4 +44,18 @@ public class QuitButton extends Component {
 		
 		Conversions.drawString(graphics, "QUIT", OFFSET_X + 32, OFFSET_Y + 18);
 	}
+	
+	//getters and setters
+	public void setHovered(boolean hovered) {
+		this.hovered = hovered;
+		
+		//change font style if hovered
+		if (hovered) {
+			quitButtonFont = new Font("Arial", Font.BOLD + Font.ITALIC, 16);
+		}
+		else {
+			quitButtonFont = new Font("Arial", Font.BOLD, 16);
+		}
+	}
+	public boolean isHovered() { return hovered; }
 }

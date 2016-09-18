@@ -22,6 +22,9 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 public class TetrisGameUI extends JFrame {
 
@@ -33,7 +36,15 @@ public class TetrisGameUI extends JFrame {
 	public static final int FRAME_HEIGHT = 32;
 	
 	private JPanel contentPane;
-
+	private GameBorder gameBorder;
+	private PlayArea playArea;
+	private ActiveTetromino activeTetromino;
+	private NextTetromino nextTetromino;
+	private ScoreIndicator scoreIndicator;
+	private PauseIndicator pauseIndicator;
+	private QuitButton quitButton;
+	
+	
 	//launch application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -50,6 +61,7 @@ public class TetrisGameUI extends JFrame {
 
 	//default constructor
 	public TetrisGameUI() {
+		setTitle("Tetris!");
 		//setup frame and content pane
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, GAME_WIDTH + FRAME_WIDTH, GAME_HEIGHT + FRAME_HEIGHT);
@@ -65,13 +77,13 @@ public class TetrisGameUI extends JFrame {
 		TetrisGame game = new RenderingDemo();
 
 		//create game UI components
-		GameBorder gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
-		PlayArea playArea = new PlayArea(game);
-		ActiveTetromino activeTetromino = new ActiveTetromino(game);
-		NextTetromino nextTetromino = new NextTetromino(game);
-		ScoreIndicator scoreIndicator = new ScoreIndicator(game);
-		PauseIndicator pauseIndicator = new PauseIndicator(game);
-		QuitButton quitButton = new QuitButton();
+		gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
+		playArea = new PlayArea(game);
+		activeTetromino = new ActiveTetromino(game);
+		nextTetromino = new NextTetromino(game);
+		scoreIndicator = new ScoreIndicator(game);
+		pauseIndicator = new PauseIndicator(game);
+		quitButton = new QuitButton();
 		
 		//add each component to the UI
 		//these are rendered in LIFO order
@@ -82,11 +94,69 @@ public class TetrisGameUI extends JFrame {
 		contentPane.add(activeTetromino);
 		contentPane.add(playArea);
 		contentPane.add(gameBorder);
+		
+		//add UI mouse events to the content pane
+		addMouseEvents();
+	}
+
+	//adds mouse listeners and mouse pressed events to the content pane
+	public void addMouseEvents() {
+		//this method should be removed in favor of each component
+		//handling its own mouse events. At the moment this cannot 
+		//done as component bound computation is not implemented
+		
+		contentPane.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				float x = Conversions.toLogicalX(event.getX());
+				float y = Conversions.toLogicalY(event.getY());
+
+				//close application when mouse pressed in quit button
+				if (QuitButton.FRAME.contains(x, y)) {
+					System.exit(0);
+				}
+			}
+		});
+		
+		contentPane.addMouseMotionListener(new MouseMotionListener() {
+			public void mouseMoved(MouseEvent event) {
+				float x = Conversions.toLogicalX(event.getX());
+				float y = Conversions.toLogicalY(event.getY());
+				
+				//must check both if the frame contains the mouse and if
+				//it does not contain the mouse, cannot use if/else since 
+				//an interrupt may/will occur between the if and else
+				
+				//pause game when play area is hovered
+				if (PlayArea.FRAME.contains(x, y) && !pauseIndicator.isHovered()) {
+					pauseIndicator.setHovered(true);
+					repaint();
+				}
+				if (!PlayArea.FRAME.contains(x, y) && pauseIndicator.isHovered()) {
+					pauseIndicator.setHovered(false);
+					repaint();
+				}
+				
+				//animate quit button on hover
+				if (QuitButton.FRAME.contains(x, y) && !quitButton.isHovered()) {
+					quitButton.setHovered(true);
+					repaint();
+				}
+				if (!QuitButton.FRAME.contains(x, y) && quitButton.isHovered()) {
+					quitButton.setHovered(false);
+					repaint();
+				}
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 	
 	//called on each resize
 	@Override
-	public void validate() {
+ 	public void validate() {
 		super.validate();
 
 		//update the device drawing dimensions for the game
