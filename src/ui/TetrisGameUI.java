@@ -61,8 +61,8 @@ public class TetrisGameUI extends JFrame {
 
 	//default constructor
 	public TetrisGameUI() {
-		setTitle("Tetris!");
 		//setup frame and content pane
+		setTitle("Tetris!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, GAME_WIDTH + FRAME_WIDTH, GAME_HEIGHT + FRAME_HEIGHT);
 		contentPane = new JPanel();
