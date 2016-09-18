@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,10 +17,6 @@ import ui.components.PlayArea;
 import ui.components.QuitButton;
 import ui.components.ScoreIndicator;
 
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
