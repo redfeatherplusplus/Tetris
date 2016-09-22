@@ -12,16 +12,16 @@ public class ActiveTetromino extends Component {
 	
 	private static final long serialVersionUID = -4723951479040468780L;
 	
-	private Tetromino active;
+	private TetrisGame game;
 	
 	//constructor with TetrisGame argument
 	public ActiveTetromino(TetrisGame game) {
-		active = game.getActive();
+		this.game = game;
 	}
 	
 	@Override
 	public void paint(Graphics graphics) {
-		TetrominoPainter.paint(graphics, active, 
+		TetrominoPainter.paint(graphics, game.getActive(), 
 				PlayArea.OFFSET_X, 
 				PlayArea.OFFSET_Y);
 	}

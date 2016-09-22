@@ -70,4 +70,9 @@ public class J_Mino extends Tetromino {
 		}
 	}
 
+	@Override
+	public Tetromino Copy() {
+		return new J_Mino((Point) position.clone(), orientation);
+	}
+
 }

@@ -69,6 +69,11 @@ public class S_Mino extends Tetromino {
 				break;
 		}
 	}
+
+	@Override
+	public Tetromino Copy() {
+		return new S_Mino((Point) position.clone(), orientation);
+	}
 	
 }
 

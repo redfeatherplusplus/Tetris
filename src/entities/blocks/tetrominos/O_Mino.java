@@ -32,4 +32,9 @@ public class O_Mino extends Tetromino {
 		blocks[3].getPosition().y = 1;
 	}
 
+	@Override
+	public Tetromino Copy() {
+		return new O_Mino((Point) position.clone(), orientation);
+	}
+
 }

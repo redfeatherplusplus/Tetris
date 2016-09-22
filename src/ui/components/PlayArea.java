@@ -24,12 +24,12 @@ public class PlayArea extends Component {
 			WIDTH + 4 - 1,
 			HEIGHT + 4 - 1);
 	
-	private Block[][] playArea;
+	private TetrisGame game;
 	private Rectangle[][] blockGrid;
 	
 	//constructor with TetrisGame argument
 	public PlayArea(TetrisGame game) {
-		playArea = game.getPlayArea();
+		this.game = game;
 		
 		blockGrid = new Rectangle
 				[TetrisGame.PLAY_AREA_WIDTH]
@@ -60,9 +60,10 @@ public class PlayArea extends Component {
 		}
 		
 		//draw each block
-		for (int i = 0; i < playArea.length; i++) {
-			for (int j = 0; j < playArea[i].length; j++) {
-				BlockPainter.paint(graphics, playArea[i][j], OFFSET_X, OFFSET_Y);
+		for (int i = 0; i < game.getPlayArea().length; i++) {
+			for (int j = 0; j < game.getPlayArea()[i].length; j++) {
+				BlockPainter.paint(graphics, game.getPlayArea()[i][j], 
+						OFFSET_X, OFFSET_Y);
 			}
 		}
 	}

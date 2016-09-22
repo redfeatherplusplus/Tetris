@@ -50,6 +50,9 @@ public abstract class Tetromino {
 	//method that initializes blocks
 	protected abstract void initializeBlocks();
 	
+	//returns a copy of the current tetromino for forward time integration
+	public abstract Tetromino Copy();
+	
 	//block manipulation methods
 	public void moveUp() { position.y--; }  //I didn't think here...
 	public void moveRight() { position.x++; }

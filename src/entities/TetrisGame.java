@@ -32,6 +32,7 @@ public class TetrisGame {
 	protected Tetromino next;
 	
 	//metagame data
+	protected long updateInterval;
 	protected int level;
 	protected int lines;
 	protected int score;
@@ -46,23 +47,44 @@ public class TetrisGame {
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
 		
+		updateInterval = 200;
 		level = 1;
 		lines = 0;
 		score = 0;
-		paused = true;
+		paused = false;
+	}
+	
+	//steps the game one time state forward
+	public void update() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved down
+		Tetromino activeCopy = active.Copy();
+		activeCopy.moveDown();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.moveDown();
+		}
+		else {
+			//active tetromino cannot be moved down
+			placeTetromino(active);
+			active = next;
+			next = nextTetrominoInBag(start);
+		}
 	}
 	
 	//returns next tetromino in bag
 	private Tetromino nextTetrominoInBag(Point position) {
 		if (0 == bag.size()) {
 			//bag is empty, re-fill and re-randomize bag
-			bag.add(new I_Mino(position));
-			bag.add(new J_Mino(position));
-			bag.add(new L_Mino(position));
-			bag.add(new O_Mino(position));
-			bag.add(new S_Mino(position));
-			bag.add(new T_Mino(position));
-			bag.add(new Z_Mino(position));
+			bag.add(new I_Mino((Point) position.clone()));
+			bag.add(new J_Mino((Point) position.clone()));
+			bag.add(new L_Mino((Point) position.clone()));
+			bag.add(new O_Mino((Point) position.clone()));
+			bag.add(new S_Mino((Point) position.clone()));
+			bag.add(new T_Mino((Point) position.clone()));
+			bag.add(new Z_Mino((Point) position.clone()));
 
 			Collections.shuffle(bag, new Random(System.nanoTime()));
 		}
@@ -71,8 +93,20 @@ public class TetrisGame {
 		return bag.remove(0);
 	}
 
+	//converts the tetromino into blocks
+	private void placeTetromino(Tetromino tetromino) {
+		Block[] blocks = tetromino.getBlocks();
+		
+		for (Block block : blocks) {
+			block.getPosition().x += tetromino.getPosition().x;
+			block.getPosition().y += tetromino.getPosition().y;
+			
+			playArea[block.getPosition().x][block.getPosition().y] = block;
+		}
+	}
+	
 	//true if given tetromino is inside the play area
-	public boolean inPlayArea(Tetromino tetromino) {
+	private boolean inPlayArea(Tetromino tetromino) {
 		Block[] blocks = tetromino.getBlocks();
 		
 		for (Block block : blocks) {
@@ -90,7 +124,7 @@ public class TetrisGame {
 	}
 	
 	//true if given tetromino is colliding with a block
-	public boolean isColliding(Tetromino tetromino) {
+	private boolean isColliding(Tetromino tetromino) {
 		Block[] blocks = tetromino.getBlocks();
 		
 		for (Block block : blocks) {
@@ -118,6 +152,12 @@ public class TetrisGame {
 	}
 	public Tetromino getNext() {
 		return next;
+	}
+	public long getUpdateInterval() {
+		return updateInterval;
+	}
+	public void setUpdateInterval(long updateInterval) {
+		this.updateInterval = updateInterval;
 	}
 	public int getLevel() {
 		return level;

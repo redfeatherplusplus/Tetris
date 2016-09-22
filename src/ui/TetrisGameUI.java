@@ -8,6 +8,7 @@ package ui;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,6 +27,8 @@ import ui.components.ScoreIndicator;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TetrisGameUI extends JFrame {
 
@@ -45,6 +48,8 @@ public class TetrisGameUI extends JFrame {
 	private PauseIndicator pauseIndicator;
 	private QuitButton quitButton;
 	
+	private TetrisGame game;
+	private Timer gameUpdateTimer;
 	
 	//launch application
 	public static void main(String[] args) {
@@ -75,7 +80,7 @@ public class TetrisGameUI extends JFrame {
 		Conversions.setDeviceDimensions(contentPane.getSize());
 		
 		//start the game
-		TetrisGame game = new RenderingDemo();
+		game = new TetrisGame();
 
 		//create game UI components
 		gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
@@ -98,6 +103,15 @@ public class TetrisGameUI extends JFrame {
 		
 		//add UI mouse events to the content pane
 		addMouseEvents();
+		
+		//create and start a timer to periodically update the game
+		gameUpdateTimer = new Timer();
+		gameUpdateTimer.schedule(new TimerTask() {
+	        public void run() {
+	            game.update();
+	            repaint();
+	        }
+	    }, 0, game.getUpdateInterval());
 	}
 
 	//adds mouse listeners and mouse pressed events to the content pane
@@ -169,5 +183,10 @@ public class TetrisGameUI extends JFrame {
 			component.setBounds(0, 0, 
 					contentPane.getSize().width, 
 					contentPane.getSize().height);
+	}
+
+	@Override
+	public void paint(Graphics graphics) {
+		super.paint(graphics);
 	}
 }

@@ -29,12 +29,11 @@ public class NextTetromino extends Component {
 			WIDTH + 4 - 1,
 			HEIGHT + 4 - 1);
 	
-	private Tetromino next;
+	private TetrisGame game;
 	
 	//constructor with TetrisGame argument
 	public NextTetromino(TetrisGame game) {
-		next = game.getNext();
-		
+		this.game = game;
 	}
 	
 	@Override
@@ -43,7 +42,7 @@ public class NextTetromino extends Component {
 	
 		//compute the offset needed to center the tetromino
 		Point offset = new Point();
-		if (next instanceof I_Mino || next instanceof O_Mino) {
+		if (game.getNext() instanceof I_Mino || game.getNext() instanceof O_Mino) {
 			//center as if four blocks wide and two tall
 			offset.x = OFFSET_X + (WIDTH - 4 * BlockPainter.PIXEL_SIZE) / 2;
 			offset.y = OFFSET_Y + (HEIGHT - 2 * BlockPainter.PIXEL_SIZE) / 2;
@@ -55,7 +54,7 @@ public class NextTetromino extends Component {
 		}
 		
 		//manually paint each block to ignore the tetromino's position
-		for(Block block : next.getBlocks()) {
+		for(Block block : game.getNext().getBlocks()) {
 			BlockPainter.paint(graphics, block, 
 					offset.x, 
 					offset.y);

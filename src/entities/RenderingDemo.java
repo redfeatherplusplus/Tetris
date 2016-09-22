@@ -35,8 +35,5 @@ public class RenderingDemo extends TetrisGame {
 		
 		//move active tetromino down one
 		active.moveDown();
-		
-		//unpause the game
-		paused = false;
 	}
 }
