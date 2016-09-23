@@ -30,6 +30,7 @@ public class TetrisGame {
 	protected Point start;
 	protected Tetromino active;
 	protected Tetromino next;
+	protected Tetromino ghost;
 	
 	//metagame data
 	protected long updateInterval;
@@ -46,8 +47,9 @@ public class TetrisGame {
 		start = new Point(PLAY_AREA_WIDTH / 2 - TETROMINO_WIDTH, 0);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
+		ghost = generateGhost();
 		
-		updateInterval = 200;
+		updateInterval = 500;
 		level = 1;
 		lines = 0;
 		score = 0;
@@ -127,6 +129,22 @@ public class TetrisGame {
 		return false;
 	}
 	
+	//generate ghost where active block will fall 
+	private Tetromino generateGhost() {
+		//test on a copy where the active tetromino will fall
+		Tetromino activeCopy = active.Copy();
+		
+		//move copy down until no longer possible
+		while (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			activeCopy.moveDown();
+		}
+		
+		//move copy back up one into a valid position
+		activeCopy.moveUp();
+		
+		return activeCopy;
+	}
+	
 	//block manipulation methods
 	public void moveActiveUp() {
 		//do nothing if paused
@@ -138,6 +156,7 @@ public class TetrisGame {
 		
 		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
 			active.moveUp();
+			ghost = generateGhost();
 		}
 	}
 	public void moveActiveRight() {
@@ -150,6 +169,7 @@ public class TetrisGame {
 		
 		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
 			active.moveRight();
+			ghost = generateGhost();
 		}
 	}
 	public void moveActiveDown() {
@@ -162,12 +182,15 @@ public class TetrisGame {
 		
 		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
 			active.moveDown();
+			ghost = generateGhost();
 		}
 		else {
 			//active tetromino cannot be moved down, place it instead
 			placeTetromino(active);
 			active = next;
 			next = nextTetrominoInBag(start);
+
+			ghost = generateGhost();
 		}
 	}
 	public void moveActiveLeft() {
@@ -180,6 +203,7 @@ public class TetrisGame {
 		
 		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
 			active.moveLeft();
+			ghost = generateGhost();
 		}
 	}
 	public void moveActiveClockwise() {
@@ -192,6 +216,7 @@ public class TetrisGame {
 		
 		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
 			active.rotateClockWise();
+			ghost = generateGhost();
 		}
 	}
 	public void moveActiveCounterClockwise() {
@@ -204,6 +229,7 @@ public class TetrisGame {
 		
 		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
 			active.rotateCounterClockWise();
+			ghost = generateGhost();
 		}
 	}
 
@@ -219,6 +245,12 @@ public class TetrisGame {
 	}
 	public Tetromino getNext() {
 		return next;
+	}
+	public Tetromino getGhost() {
+		return ghost;
+	}
+	public void setGhost(Tetromino ghost) {
+		this.ghost = ghost;
 	}
 	public long getUpdateInterval() {
 		return updateInterval;

@@ -19,6 +19,7 @@ import entities.RenderingDemo;
 import entities.TetrisGame;
 import ui.components.ActiveTetromino;
 import ui.components.GameBorder;
+import ui.components.GhostTetromino;
 import ui.components.NextTetromino;
 import ui.components.PauseIndicator;
 import ui.components.PlayArea;
@@ -45,6 +46,7 @@ public class TetrisGameUI extends JFrame {
 	private JPanel contentPane;
 	private GameBorder gameBorder;
 	private PlayArea playArea;
+	private GhostTetromino ghostTetromino;
 	private ActiveTetromino activeTetromino;
 	private NextTetromino nextTetromino;
 	private ScoreIndicator scoreIndicator;
@@ -88,6 +90,7 @@ public class TetrisGameUI extends JFrame {
 		//create game UI components
 		gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
 		playArea = new PlayArea(game);
+		ghostTetromino = new GhostTetromino(game);
 		activeTetromino = new ActiveTetromino(game);
 		nextTetromino = new NextTetromino(game);
 		scoreIndicator = new ScoreIndicator(game);
@@ -101,6 +104,7 @@ public class TetrisGameUI extends JFrame {
 		contentPane.add(scoreIndicator);
 		contentPane.add(nextTetromino);
 		contentPane.add(activeTetromino);
+		contentPane.add(ghostTetromino);
 		contentPane.add(playArea);
 		contentPane.add(gameBorder);
 		

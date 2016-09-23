@@ -36,4 +36,26 @@ public class TetrominoPainter {
 			}
 		}
 	}
+	
+	public static void paintGhost(Graphics graphics, Tetromino tetromino, 
+			int offsetX, int offsetY) {
+		//check if Tetromino exists
+		if (null != tetromino) {
+			for(Block block : tetromino.getBlocks()) {
+				
+				Point blockOffset = new Point(
+						tetromino.getPosition().x + block.getPosition().x,
+						tetromino.getPosition().y + block.getPosition().y);
+				
+				Rectangle rect = new Rectangle(
+						offsetX + blockOffset.x * BlockPainter.PIXEL_SIZE + 2,
+						offsetY + blockOffset.y * BlockPainter.PIXEL_SIZE + 2,
+						BlockPainter.PIXEL_SIZE - 5,
+						BlockPainter.PIXEL_SIZE - 5);
+				
+				graphics.setColor(block.getColor());
+				Conversions.drawRect(graphics, rect);
+			}
+		}
+	}
 }
