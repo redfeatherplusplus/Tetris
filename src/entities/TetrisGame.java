@@ -56,22 +56,9 @@ public class TetrisGame {
 	
 	//steps the game one time state forward
 	public void update() {
-		//do nothing if paused
-		if (paused) { return; }
-		
-		//test on a copy if the active tetromino can be moved down
-		Tetromino activeCopy = active.Copy();
-		activeCopy.moveDown();
-		
-		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
-			active.moveDown();
-		}
-		else {
-			//active tetromino cannot be moved down
-			placeTetromino(active);
-			active = next;
-			next = nextTetrominoInBag(start);
-		}
+		//move the active tetromino down, note: this method places
+		//the tetromino if it cannot be moved down
+		moveActiveDown();
 	}
 	
 	//returns next tetromino in bag
@@ -140,6 +127,86 @@ public class TetrisGame {
 		return false;
 	}
 	
+	//block manipulation methods
+	public void moveActiveUp() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved up
+		Tetromino activeCopy = active.Copy();
+		activeCopy.moveUp();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.moveUp();
+		}
+	}
+	public void moveActiveRight() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved right
+		Tetromino activeCopy = active.Copy();
+		activeCopy.moveRight();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.moveRight();
+		}
+	}
+	public void moveActiveDown() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved down
+		Tetromino activeCopy = active.Copy();
+		activeCopy.moveDown();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.moveDown();
+		}
+		else {
+			//active tetromino cannot be moved down, place it instead
+			placeTetromino(active);
+			active = next;
+			next = nextTetrominoInBag(start);
+		}
+	}
+	public void moveActiveLeft() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved left
+		Tetromino activeCopy = active.Copy();
+		activeCopy.moveLeft();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.moveLeft();
+		}
+	}
+	public void moveActiveClockwise() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved clockwise
+		Tetromino activeCopy = active.Copy();
+		activeCopy.rotateClockWise();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.rotateClockWise();
+		}
+	}
+	public void moveActiveCounterClockwise() {
+		//do nothing if paused
+		if (paused) { return; }
+		
+		//test on a copy if the active tetromino can be moved counter clockwise
+		Tetromino activeCopy = active.Copy();
+		activeCopy.rotateCounterClockWise();
+		
+		if (inPlayArea(activeCopy) && !isColliding(activeCopy)) {
+			active.rotateCounterClockWise();
+		}
+	}
+
 	//getters and setters
 	public Block[][] getPlayArea() {
 		return playArea;

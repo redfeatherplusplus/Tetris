@@ -54,7 +54,7 @@ public abstract class Tetromino {
 	public abstract Tetromino Copy();
 	
 	//block manipulation methods
-	public void moveUp() { position.y--; }  //I didn't think here...
+	public void moveUp() { position.y--; }  
 	public void moveRight() { position.x++; }
 	public void moveDown() { position.y++; }
 	public void moveLeft() { position.x--; }

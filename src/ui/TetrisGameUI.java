@@ -12,6 +12,7 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import api.Conversions;
 import entities.RenderingDemo;
@@ -27,6 +28,8 @@ import ui.components.ScoreIndicator;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -121,26 +124,55 @@ public class TetrisGameUI extends JFrame {
 		//handling its own mouse events. At the moment this cannot 
 		//done as component bound computation is not implemented
 		
+		//for all frame-based actions check both if the frame contains 
+		//the mouse and if it does not contain it, cannot use if/else 
+		//since an interrupt may/will occur between the if and else
+		
 		contentPane.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mousePressed(MouseEvent event) {
 				float x = Conversions.toLogicalX(event.getX());
 				float y = Conversions.toLogicalY(event.getY());
-
+				
 				//close application when mouse pressed in quit button
 				if (QuitButton.FRAME.contains(x, y)) {
 					System.exit(0);
+				}
+				
+				//move when pressed outside of quitbutton
+				if (!QuitButton.FRAME.contains(x, y)) {
+					if (SwingUtilities.isLeftMouseButton(event)) {
+						game.moveActiveLeft();
+						repaint();
+					}
+					if (SwingUtilities.isRightMouseButton(event)) {
+						game.moveActiveRight();
+						repaint();
+					}
+				}
+			}
+		});
+		
+		contentPane.addMouseWheelListener(new MouseWheelListener() {
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent event) {
+				//if wheel rotation < 0, then scrolling is up
+				if (event.getWheelRotation() < 0) {
+					game.moveActiveClockwise();
+					repaint();
+				}
+				else {
+					game.moveActiveCounterClockwise();
+					repaint();
 				}
 			}
 		});
 		
 		contentPane.addMouseMotionListener(new MouseMotionListener() {
+			@Override
 			public void mouseMoved(MouseEvent event) {
 				float x = Conversions.toLogicalX(event.getX());
 				float y = Conversions.toLogicalY(event.getY());
-				
-				//must check both if the frame contains the mouse and if
-				//it does not contain the mouse, cannot use if/else since 
-				//an interrupt may/will occur between the if and else
 				
 				//pause game when play area is hovered
 				if (PlayArea.FRAME.contains(x, y) && !pauseIndicator.isHovered()) {
