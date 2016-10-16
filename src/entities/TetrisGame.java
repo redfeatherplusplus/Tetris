@@ -41,11 +41,11 @@ public class TetrisGame {
 	
 	//default constructor
 	public TetrisGame() {
-		playAreaWidth = 10;
 		playAreaHeight = 20;
+		playAreaWidth = 10;
 		tetrominoWidth = 2;
 		
-		playArea = new Block[playAreaWidth][playAreaHeight];
+		playArea = new Block[playAreaHeight][playAreaWidth];
 		bag = new ArrayList<Tetromino>();
 		
 		start = new Point(playAreaWidth / 2 - tetrominoWidth, 0);
@@ -61,11 +61,11 @@ public class TetrisGame {
 	}
 
 	public TetrisGame(int playAreaWidth, int playAreaHeight) {
-		this.setPlayAreaWidth(playAreaWidth);
-		this.setPlayAreaHeight(playAreaHeight);
+		this.playAreaHeight = playAreaHeight;
+		this.playAreaWidth = playAreaWidth;
 		tetrominoWidth = 2;
 		
-		playArea = new Block[playAreaWidth][playAreaHeight];
+		playArea = new Block[playAreaHeight][playAreaWidth];
 		bag = new ArrayList<Tetromino>();
 		
 		start = new Point(playAreaWidth / 2 - tetrominoWidth, 0);
@@ -106,6 +106,42 @@ public class TetrisGame {
 		return bag.remove(0);
 	}
 
+	//true if given row is filled
+	private boolean rowIsFilled(Block[] blocks) {
+		for (Block block : blocks) {
+			if (null == block) { return false; }
+		}
+		
+		return true;
+	}
+	
+	//removes row and shifts blocks above down by one
+	private void removeRow(int i) {
+		for (; i > 0; i--) {
+			for (int j = 0; j < playArea[i].length; j++) {
+				//move both the array reference and positional values
+				playArea[i][j] = playArea[i - 1][j];
+				if (null != playArea[i][j]) {
+					playArea[i][j].moveDown();
+				}
+			}
+		}
+	}
+	
+	//handles filled rows & returns number of rows filled
+	private int handleFilledRows() {
+		int numFilledRows = 0;
+		
+		for (int i = 0; i < playArea.length; i++) {
+			if (rowIsFilled(playArea[i])) {
+				removeRow(i);
+				numFilledRows++;
+			}
+		}
+		
+		return numFilledRows;
+	}
+	
 	//converts the tetromino into blocks
 	private void placeTetromino(Tetromino tetromino) {
 		Block[] blocks = tetromino.getBlocks();
@@ -114,8 +150,10 @@ public class TetrisGame {
 			block.getPosition().x += tetromino.getPosition().x;
 			block.getPosition().y += tetromino.getPosition().y;
 			
-			playArea[block.getPosition().x][block.getPosition().y] = block;
+			playArea[block.getPosition().y][block.getPosition().x] = block;
 		}
+		
+		handleFilledRows();
 	}
 	
 	//true if given tetromino is inside the play area
@@ -145,7 +183,7 @@ public class TetrisGame {
 			int y = tetromino.getPosition().y + block.getPosition().y;
 			
 			//check if a block already exists at this location in the play area
-			if (null != playArea[x][y]) {
+			if (null != playArea[y][x]) {
 				return true;
 			}
 		}

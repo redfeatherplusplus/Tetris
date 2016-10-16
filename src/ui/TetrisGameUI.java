@@ -44,7 +44,6 @@ public class TetrisGameUI extends JFrame {
 	public static int FRAME_HEIGHT;
 	
 	private JPanel contentPane;
-	private GameBorder gameBorder;
 	private PlayArea playArea;
 	private GhostTetromino ghostTetromino;
 	private ActiveTetromino activeTetromino;
@@ -52,6 +51,7 @@ public class TetrisGameUI extends JFrame {
 	private ScoreIndicator scoreIndicator;
 	private PauseIndicator pauseIndicator;
 	private QuitButton quitButton;
+	private GameBorder gameBorder;
 	
 	private TetrisGame game;
 	private Timer gameUpdateTimer;
@@ -73,7 +73,7 @@ public class TetrisGameUI extends JFrame {
 	//default constructor
 	public TetrisGameUI() {
 		//start the game
-		game = new TetrisGame(5, 15);
+		game = new TetrisGame(10, 20);
 
 		//create game UI components
 		playArea = new PlayArea(game);
@@ -89,6 +89,7 @@ public class TetrisGameUI extends JFrame {
 		GAME_HEIGHT = PlayArea.OFFSET_Y + PlayArea.HEIGHT + 16;
 		FRAME_WIDTH = 10;
 		FRAME_HEIGHT = 32;
+		
 		gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
 		
 		setTitle("Tetris!");
