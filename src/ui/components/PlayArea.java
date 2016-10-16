@@ -14,15 +14,11 @@ public class PlayArea extends Component {
 	
 	private static final long serialVersionUID = 6479917092059257798L;
 
-	public static final int WIDTH = TetrisGame.PLAY_AREA_WIDTH * BlockPainter.PIXEL_SIZE;
-	public static final int HEIGHT = TetrisGame.PLAY_AREA_HEIGHT * BlockPainter.PIXEL_SIZE;
-	public static final int OFFSET_X = 16;
-	public static final int OFFSET_Y = 16;
-	public static final Rectangle FRAME = new Rectangle(
-			OFFSET_X - 2, 
-			OFFSET_Y - 2, 
-			WIDTH + 4 - 1,
-			HEIGHT + 4 - 1);
+	public static int WIDTH;
+	public static int HEIGHT;
+	public static int OFFSET_X;
+	public static int OFFSET_Y;
+	public static Rectangle FRAME;
 	
 	private TetrisGame game;
 	private Rectangle[][] blockGrid;
@@ -31,9 +27,19 @@ public class PlayArea extends Component {
 	public PlayArea(TetrisGame game) {
 		this.game = game;
 		
+		WIDTH = game.getPlayAreaWidth() * BlockPainter.PIXEL_SIZE;
+		HEIGHT = game.getPlayAreaHeight() * BlockPainter.PIXEL_SIZE;
+		OFFSET_X = 16;
+		OFFSET_Y = 16;
+		FRAME = new Rectangle(
+				OFFSET_X - 2, 
+				OFFSET_Y - 2, 
+				WIDTH + 4 - 1,
+				HEIGHT + 4 - 1);
+		
 		blockGrid = new Rectangle
-				[TetrisGame.PLAY_AREA_WIDTH]
-				[TetrisGame.PLAY_AREA_HEIGHT];
+				[game.getPlayAreaWidth()]
+				[game.getPlayAreaHeight()];
 		
 		for (int i = 0; i < blockGrid.length; i++) {
 			for (int j = 0; j < blockGrid[i].length; j++) {

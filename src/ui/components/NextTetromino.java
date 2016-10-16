@@ -19,21 +19,27 @@ public class NextTetromino extends Component {
 	
 	private static final long serialVersionUID = 1L;
 
-	public static final int WIDTH = 128;
-	public static final int HEIGHT = 80;
-	public static final int OFFSET_X = PlayArea.OFFSET_X + PlayArea.WIDTH + 16;
-	public static final int OFFSET_Y = 16;
-	public static final Rectangle FRAME = new Rectangle(
-			OFFSET_X - 2, 
-			OFFSET_Y - 2, 
-			WIDTH + 4 - 1,
-			HEIGHT + 4 - 1);
+	public static int WIDTH;
+	public static int HEIGHT;
+	public static int OFFSET_X;
+	public static int OFFSET_Y;
+	public static Rectangle FRAME;
 	
 	private TetrisGame game;
 	
 	//constructor with TetrisGame argument
 	public NextTetromino(TetrisGame game) {
 		this.game = game;
+		
+		WIDTH = 128;
+		HEIGHT = 80;
+		OFFSET_X = PlayArea.OFFSET_X + PlayArea.WIDTH + 16;
+		OFFSET_Y = 16;
+		FRAME = new Rectangle(
+				OFFSET_X - 2, 
+				OFFSET_Y - 2, 
+				WIDTH + 4 - 1,
+				HEIGHT + 4 - 1);
 	}
 	
 	@Override

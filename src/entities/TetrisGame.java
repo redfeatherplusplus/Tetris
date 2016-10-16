@@ -18,9 +18,9 @@ import entities.blocks.tetrominos.Z_Mino;
 
 public class TetrisGame {
 
-	public static final int PLAY_AREA_WIDTH = 10;
-	public static final int PLAY_AREA_HEIGHT = 20;
-	public static final int TETROMINO_WIDTH = 2;
+	protected int playAreaWidth;
+	protected int playAreaHeight;
+	protected int tetrominoWidth;
 	
     //game data
 	protected Block[][] playArea;
@@ -41,10 +41,34 @@ public class TetrisGame {
 	
 	//default constructor
 	public TetrisGame() {
-		playArea = new Block[PLAY_AREA_WIDTH][PLAY_AREA_HEIGHT];
+		playAreaWidth = 10;
+		playAreaHeight = 20;
+		tetrominoWidth = 2;
+		
+		playArea = new Block[playAreaWidth][playAreaHeight];
 		bag = new ArrayList<Tetromino>();
 		
-		start = new Point(PLAY_AREA_WIDTH / 2 - TETROMINO_WIDTH, 0);
+		start = new Point(playAreaWidth / 2 - tetrominoWidth, 0);
+		active = nextTetrominoInBag(start);
+		next = nextTetrominoInBag(start);
+		ghost = generateGhost();
+		
+		updateInterval = 500;
+		level = 1;
+		lines = 0;
+		score = 0;
+		paused = false;
+	}
+
+	public TetrisGame(int playAreaWidth, int playAreaHeight) {
+		this.setPlayAreaWidth(playAreaWidth);
+		this.setPlayAreaHeight(playAreaHeight);
+		tetrominoWidth = 2;
+		
+		playArea = new Block[playAreaWidth][playAreaHeight];
+		bag = new ArrayList<Tetromino>();
+		
+		start = new Point(playAreaWidth / 2 - tetrominoWidth, 0);
 		active = nextTetrominoInBag(start);
 		next = nextTetrominoInBag(start);
 		ghost = generateGhost();
@@ -103,8 +127,8 @@ public class TetrisGame {
 			int y = tetromino.getPosition().y + block.getPosition().y;
 			
 			//check if this location is in the play area
-			if (x < 0 || x > PLAY_AREA_WIDTH - 1 ||
-				y < 0 || y > PLAY_AREA_HEIGHT - 1) {
+			if (x < 0 || x > playAreaWidth- 1 ||
+				y < 0 || y > playAreaHeight - 1) {
 				return false;
 			}
 		}
@@ -281,5 +305,17 @@ public class TetrisGame {
 	}
 	public void setPaused(boolean paused) {
 		this.paused = paused;
+	}
+	public int getPlayAreaWidth() {
+		return playAreaWidth;
+	}
+	public void setPlayAreaWidth(int playAreaWidth) {
+		this.playAreaWidth = playAreaWidth;
+	}
+	public int getPlayAreaHeight() {
+		return playAreaHeight;
+	}
+	public void setPlayAreaHeight(int playAreaHeight) {
+		this.playAreaHeight = playAreaHeight;
 	}
 }

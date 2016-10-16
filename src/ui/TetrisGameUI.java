@@ -38,10 +38,10 @@ public class TetrisGameUI extends JFrame {
 
 	private static final long serialVersionUID = -4294448890074857524L;
 	
-	public static final int GAME_WIDTH = 416;
-	public static final int GAME_HEIGHT = 512;
-	public static final int FRAME_WIDTH = 10;
-	public static final int FRAME_HEIGHT = 32;
+	public static int GAME_WIDTH;
+	public static int GAME_HEIGHT;
+	public static int FRAME_WIDTH;
+	public static int FRAME_HEIGHT;
 	
 	private JPanel contentPane;
 	private GameBorder gameBorder;
@@ -72,7 +72,25 @@ public class TetrisGameUI extends JFrame {
 
 	//default constructor
 	public TetrisGameUI() {
+		//start the game
+		game = new TetrisGame(5, 15);
+
+		//create game UI components
+		playArea = new PlayArea(game);
+		ghostTetromino = new GhostTetromino(game);
+		activeTetromino = new ActiveTetromino(game);
+		nextTetromino = new NextTetromino(game);
+		scoreIndicator = new ScoreIndicator(game);
+		pauseIndicator = new PauseIndicator(game);
+		quitButton = new QuitButton();
+		
 		//setup frame and content pane
+		GAME_WIDTH = NextTetromino.OFFSET_X + NextTetromino.WIDTH + 16;
+		GAME_HEIGHT = PlayArea.OFFSET_Y + PlayArea.HEIGHT + 16;
+		FRAME_WIDTH = 10;
+		FRAME_HEIGHT = 32;
+		gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
+		
 		setTitle("Tetris!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, GAME_WIDTH + FRAME_WIDTH, GAME_HEIGHT + FRAME_HEIGHT);
@@ -83,19 +101,6 @@ public class TetrisGameUI extends JFrame {
 		//set the logical and device drawing dimensions
 		Conversions.setLogicalDimensions(GAME_WIDTH, GAME_HEIGHT);
 		Conversions.setDeviceDimensions(contentPane.getSize());
-		
-		//start the game
-		game = new TetrisGame();
-
-		//create game UI components
-		gameBorder = new GameBorder(GAME_WIDTH, GAME_HEIGHT);
-		playArea = new PlayArea(game);
-		ghostTetromino = new GhostTetromino(game);
-		activeTetromino = new ActiveTetromino(game);
-		nextTetromino = new NextTetromino(game);
-		scoreIndicator = new ScoreIndicator(game);
-		pauseIndicator = new PauseIndicator(game);
-		quitButton = new QuitButton();
 		
 		//add each component to the UI
 		//these are rendered in LIFO order

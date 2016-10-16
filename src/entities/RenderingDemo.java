@@ -14,7 +14,7 @@ import entities.blocks.tetrominos.Z_Mino;
 public class RenderingDemo extends TetrisGame {
 	public RenderingDemo() {
 		//initialize play area
-		playArea  = new Block[PLAY_AREA_WIDTH][PLAY_AREA_HEIGHT];
+		playArea  = new Block[getPlayAreaWidth()][getPlayAreaHeight()];
 		
 		playArea[7][18] = new Block(new Point(7, 18), S_Mino.COLOR);
 		playArea[8][18] = new Block(new Point(8, 18), S_Mino.COLOR);

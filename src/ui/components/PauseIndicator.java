@@ -15,11 +15,7 @@ public class PauseIndicator extends Component {
 	
 	private static final long serialVersionUID = -7790433383646677788L;
 
-	public static final Rectangle PLAY_AREA_OVERLAY = new Rectangle (
-			PlayArea.FRAME.x + 1,
-			PlayArea.FRAME.y + 1,
-			PlayArea.FRAME.width - 1,
-			PlayArea.FRAME.height - 1);
+	public static Rectangle PLAY_AREA_OVERLAY;
 	
 	private TetrisGame game;
 	private Font pausedFont;
@@ -29,6 +25,12 @@ public class PauseIndicator extends Component {
 	
 	public PauseIndicator(TetrisGame game) { 
 		this.game = game;
+		
+		PLAY_AREA_OVERLAY = new Rectangle (
+				PlayArea.FRAME.x + 1,
+				PlayArea.FRAME.y + 1,
+				PlayArea.FRAME.width - 1,
+				PlayArea.FRAME.height - 1);
 		
 		pausedFont = new Font("Arial", Font.BOLD, 16);
 		pausedFontColor = new Color(0, 112, 192);
@@ -46,8 +48,8 @@ public class PauseIndicator extends Component {
 			//note: the offset below is just a value I felt looked nice
 			
 			Conversions.drawString(graphics, "PAUSE", 
-					PlayArea.OFFSET_X + 96, 
-					PlayArea.OFFSET_Y + 232);
+					PlayArea.OFFSET_X + PlayArea.FRAME.width / 2 - 24, 
+					PlayArea.OFFSET_Y + PlayArea.FRAME.height / 2 - 8);
 		}
 	}
 	

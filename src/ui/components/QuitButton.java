@@ -15,15 +15,11 @@ public class QuitButton extends Component {
 	
 	private static final long serialVersionUID = 3692741696342705655L;
 
-	public static final int WIDTH = 104;
-	public static final int HEIGHT = 24;
-	public static final int OFFSET_X = PlayArea.OFFSET_X + PlayArea.WIDTH + 16;
-	public static final int OFFSET_Y = PlayArea.OFFSET_Y + PlayArea.HEIGHT - HEIGHT;
-	public static final Rectangle FRAME = new Rectangle(
-			OFFSET_X - 2, 
-			OFFSET_Y - 2, 
-			WIDTH + 4 - 1,
-			HEIGHT + 4 - 1);
+	public static int WIDTH;
+	public static int HEIGHT;
+	public static int OFFSET_X;
+	public static int OFFSET_Y;
+	public static Rectangle FRAME;
 	
 	private Font quitButtonFont;
 	private boolean hovered;
@@ -31,6 +27,16 @@ public class QuitButton extends Component {
 	public QuitButton() { 
 		quitButtonFont = new Font("Arial", Font.BOLD, 16);
 		hovered = false;
+		
+		WIDTH = 104;
+		HEIGHT = 24;
+		OFFSET_X = PlayArea.OFFSET_X + PlayArea.WIDTH + 16;
+		OFFSET_Y = PlayArea.OFFSET_Y + PlayArea.HEIGHT - HEIGHT;
+		FRAME = new Rectangle(
+				OFFSET_X - 2, 
+				OFFSET_Y - 2, 
+				WIDTH + 4 - 1,
+				HEIGHT + 4 - 1);
 	}
 	
 	@Override
