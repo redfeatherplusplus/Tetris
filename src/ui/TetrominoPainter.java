@@ -58,4 +58,23 @@ public class TetrominoPainter {
 			}
 		}
 	}
+	
+	public static boolean contains(Tetromino tetromino, float x, float y,  
+			int offsetX, int offsetY) {
+		for(Block block : tetromino.getBlocks()) {
+			Point blockOffset = new Point(
+					tetromino.getPosition().x + block.getPosition().x,
+					tetromino.getPosition().y + block.getPosition().y);
+			
+			Rectangle rect = new Rectangle(
+					offsetX + blockOffset.x * BlockPainter.PIXEL_SIZE,
+					offsetY + blockOffset.y * BlockPainter.PIXEL_SIZE,
+					BlockPainter.PIXEL_SIZE,
+					BlockPainter.PIXEL_SIZE);
+			
+			if (rect.contains(x, y)) { return true; }
+		}
+		
+		return false;
+	}
 }

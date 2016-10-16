@@ -74,7 +74,7 @@ public class TetrisGameUI extends JFrame {
 	//default constructor
 	public TetrisGameUI() {
 		//start the game
-		game = new TetrisGame(10, 20, 50, 5, 1);
+		game = new TetrisGame(10, 20, 200, 5, 1);
 
 		//create game UI components
 		playArea = new PlayArea(game);
@@ -186,6 +186,20 @@ public class TetrisGameUI extends JFrame {
 				}
 				if (!PlayArea.FRAME.contains(x, y) && pauseIndicator.isHovered()) {
 					pauseIndicator.setHovered(false);
+					repaint();
+				}
+				
+				//swap active tetromino with next when hovered
+				if (TetrominoPainter.contains(game.getActive(), 
+						x, y, PlayArea.OFFSET_X, PlayArea.OFFSET_Y) && 
+						!activeTetromino.isHovered()) {
+					activeTetromino.setHovered(true);
+					repaint();
+				}
+				if (!TetrominoPainter.contains(game.getActive(), 
+						x, y, PlayArea.OFFSET_X, PlayArea.OFFSET_Y) && 
+						activeTetromino.isHovered()) {
+					activeTetromino.setHovered(false);
 					repaint();
 				}
 				

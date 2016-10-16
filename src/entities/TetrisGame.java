@@ -99,6 +99,19 @@ public class TetrisGame {
 		}
 	}
 	
+	//swaps active tetromino with next tetromino
+	public void swapActive() {
+		next.getPosition().x = active.getPosition().x; 
+		next.getPosition().y = active.getPosition().y; 
+		
+		active = next;
+		next = nextTetrominoInBag(start);
+		ghost = generateGhost();
+		
+		//apply score penalty for swapping
+		score -= level * scoreMultiplier;
+	}
+	
 	//returns next tetromino in bag
 	private Tetromino nextTetrominoInBag(Point position) {
 		if (0 == bag.size()) {
@@ -267,7 +280,6 @@ public class TetrisGame {
 			placeTetromino(active);
 			active = next;
 			next = nextTetrominoInBag(start);
-
 			ghost = generateGhost();
 		}
 	}
