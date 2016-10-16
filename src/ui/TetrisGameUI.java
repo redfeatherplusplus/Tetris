@@ -55,6 +55,7 @@ public class TetrisGameUI extends JFrame {
 	
 	private TetrisGame game;
 	private Timer gameUpdateTimer;
+	private long gameUpdateInterval;
 	
 	//launch application
 	public static void main(String[] args) {
@@ -73,7 +74,7 @@ public class TetrisGameUI extends JFrame {
 	//default constructor
 	public TetrisGameUI() {
 		//start the game
-		game = new TetrisGame(10, 20);
+		game = new TetrisGame(10, 20, 200, 5, 1);
 
 		//create game UI components
 		playArea = new PlayArea(game);
@@ -118,17 +119,11 @@ public class TetrisGameUI extends JFrame {
 		addMouseEvents();
 		
 		//create and start a timer to periodically update the game
-		gameUpdateTimer = new Timer();
-		gameUpdateTimer.schedule(new TimerTask() {
-	        public void run() {
-	            game.update();
-	            repaint();
-	        }
-	    }, 0, game.getUpdateInterval());
+		startGameUpdateTimer();
 	}
 
 	//adds mouse listeners and mouse pressed events to the content pane
-	public void addMouseEvents() {
+	private void addMouseEvents() {
 		
 		//this method should be removed in favor of each component
 		//handling its own mouse events. At the moment this cannot 
@@ -210,6 +205,26 @@ public class TetrisGameUI extends JFrame {
 				// TODO Auto-generated method stub
 			}
 		});
+	}
+	
+	//starts or updates game timer
+	private void startGameUpdateTimer() {
+		gameUpdateInterval = game.getUpdateInterval();
+		
+		gameUpdateTimer = new Timer();
+		gameUpdateTimer.schedule(new TimerTask() {
+	        public void run() {
+	            game.update();
+	            repaint();
+	            
+	            if (gameUpdateInterval != game.getUpdateInterval()) {
+	            	gameUpdateInterval = game.getUpdateInterval();
+		            this.cancel();
+		            
+		            startGameUpdateTimer();
+	            }
+	        }
+	    }, 0, gameUpdateInterval);
 	}
 	
 	//called on each resize

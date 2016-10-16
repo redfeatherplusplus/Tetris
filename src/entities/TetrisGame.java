@@ -34,33 +34,20 @@ public class TetrisGame {
 	
 	//metagame data
 	protected long updateInterval;
+	protected int linesToNextLevel;
+	protected int scoreMultiplier;
+	
 	protected int level;
 	protected int lines;
 	protected int score;
 	protected boolean paused;
 	
 	//default constructor
-	public TetrisGame() {
-		playAreaHeight = 20;
-		playAreaWidth = 10;
-		tetrominoWidth = 2;
-		
-		playArea = new Block[playAreaHeight][playAreaWidth];
-		bag = new ArrayList<Tetromino>();
-		
-		start = new Point(playAreaWidth / 2 - tetrominoWidth, 0);
-		active = nextTetrominoInBag(start);
-		next = nextTetrominoInBag(start);
-		ghost = generateGhost();
-		
-		updateInterval = 500;
-		level = 1;
-		lines = 0;
-		score = 0;
-		paused = false;
-	}
+	public TetrisGame() { }
 
-	public TetrisGame(int playAreaWidth, int playAreaHeight) {
+	//constructor with game setting args
+	public TetrisGame(int playAreaWidth, int playAreaHeight, 
+			long updateInterval, int linesToNextLevel, int scoreMultiplier) {
 		this.playAreaHeight = playAreaHeight;
 		this.playAreaWidth = playAreaWidth;
 		tetrominoWidth = 2;
@@ -73,7 +60,10 @@ public class TetrisGame {
 		next = nextTetrominoInBag(start);
 		ghost = generateGhost();
 		
-		updateInterval = 500;
+		this.updateInterval = updateInterval;
+		this.linesToNextLevel = linesToNextLevel;
+		this.scoreMultiplier = scoreMultiplier;
+		
 		level = 1;
 		lines = 0;
 		score = 0;
@@ -82,22 +72,43 @@ public class TetrisGame {
 	
 	//steps the game one time state forward
 	public void update() {
+		//temporaily save current game state
+		TetrisGame state = new TetrisGame();
+		state.setLines(lines);
+		state.setLevel(level);
+		state.setScore(score);
+		
 		//move the active tetromino down, note: this method places
 		//the tetromino if it cannot be moved down
 		moveActiveDown();
+		
+		//update game metadata
+		if (this.lines != state.getLines()) {
+			int linesCleared = this.lines - state.getLines();
+			score += level * scoreMultiplier * linesCleared;
+		}
+		if (lines >= linesToNextLevel * level) {
+			level++;
+		}
+		if (this.level != state.getLevel()) {
+			updateInterval *= (state.getLevel() / (double)level);
+		}
+		if (this.score != state.getScore()) {
+			//TODO: Implement events that trigger on score change
+		}
 	}
 	
 	//returns next tetromino in bag
 	private Tetromino nextTetrominoInBag(Point position) {
 		if (0 == bag.size()) {
 			//bag is empty, re-fill and re-randomize bag
-			bag.add(new I_Mino((Point) position.clone()));
-			bag.add(new J_Mino((Point) position.clone()));
-			bag.add(new L_Mino((Point) position.clone()));
+			//bag.add(new I_Mino((Point) position.clone()));
+			//bag.add(new J_Mino((Point) position.clone()));
+			//bag.add(new L_Mino((Point) position.clone()));
 			bag.add(new O_Mino((Point) position.clone()));
-			bag.add(new S_Mino((Point) position.clone()));
-			bag.add(new T_Mino((Point) position.clone()));
-			bag.add(new Z_Mino((Point) position.clone()));
+			//bag.add(new S_Mino((Point) position.clone()));
+			//bag.add(new T_Mino((Point) position.clone()));
+			//bag.add(new Z_Mino((Point) position.clone()));
 
 			Collections.shuffle(bag, new Random(System.nanoTime()));
 		}
@@ -116,7 +127,7 @@ public class TetrisGame {
 	}
 	
 	//removes row and shifts blocks above down by one
-	private void removeRow(int i) {
+	private void removeLine(int i) {
 		for (; i > 0; i--) {
 			for (int j = 0; j < playArea[i].length; j++) {
 				//move both the array reference and positional values
@@ -129,17 +140,13 @@ public class TetrisGame {
 	}
 	
 	//handles filled rows & returns number of rows filled
-	private int handleFilledRows() {
-		int numFilledRows = 0;
-		
+	private void handleFilledLines() {
 		for (int i = 0; i < playArea.length; i++) {
 			if (rowIsFilled(playArea[i])) {
-				removeRow(i);
-				numFilledRows++;
+				removeLine(i);
+				lines++;
 			}
 		}
-		
-		return numFilledRows;
 	}
 	
 	//converts the tetromino into blocks
@@ -153,7 +160,7 @@ public class TetrisGame {
 			playArea[block.getPosition().y][block.getPosition().x] = block;
 		}
 		
-		handleFilledRows();
+		handleFilledLines();
 	}
 	
 	//true if given tetromino is inside the play area
@@ -165,7 +172,7 @@ public class TetrisGame {
 			int y = tetromino.getPosition().y + block.getPosition().y;
 			
 			//check if this location is in the play area
-			if (x < 0 || x > playAreaWidth- 1 ||
+			if (x < 0 || x > playAreaWidth - 1 ||
 				y < 0 || y > playAreaHeight - 1) {
 				return false;
 			}
