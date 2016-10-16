@@ -12,11 +12,11 @@ import api.Conversions;
 public class ScoreIndicator extends Component {
 	
 	private static final long serialVersionUID = -7888415274711525286L;
-	
-	public static final int OFFSET_X = 272;
-	public static final int OFFSET_Y = 112;
+
 	public static final int WIDTH = 128;
 	public static final int HEIGHT = 192;
+	public static final int OFFSET_X = PlayArea.OFFSET_X + PlayArea.WIDTH + 16;
+	public static final int OFFSET_Y = NextTetromino.OFFSET_Y + NextTetromino.HEIGHT + 16;
 	public static final Rectangle FRAME = new Rectangle(
 			OFFSET_X - 2, 
 			OFFSET_Y - 2, 

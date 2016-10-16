@@ -14,11 +14,11 @@ import api.Conversions;
 public class QuitButton extends Component {
 	
 	private static final long serialVersionUID = 3692741696342705655L;
-	
-	public static final int OFFSET_X = 272;
-	public static final int OFFSET_Y = 472;
+
 	public static final int WIDTH = 104;
 	public static final int HEIGHT = 24;
+	public static final int OFFSET_X = PlayArea.OFFSET_X + PlayArea.WIDTH + 16;
+	public static final int OFFSET_Y = PlayArea.OFFSET_Y + PlayArea.HEIGHT - HEIGHT;
 	public static final Rectangle FRAME = new Rectangle(
 			OFFSET_X - 2, 
 			OFFSET_Y - 2, 

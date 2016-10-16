@@ -13,11 +13,11 @@ import entities.blocks.Block;
 public class PlayArea extends Component {
 	
 	private static final long serialVersionUID = 6479917092059257798L;
-	
+
+	public static final int WIDTH = TetrisGame.PLAY_AREA_WIDTH * BlockPainter.PIXEL_SIZE;
+	public static final int HEIGHT = TetrisGame.PLAY_AREA_HEIGHT * BlockPainter.PIXEL_SIZE;
 	public static final int OFFSET_X = 16;
 	public static final int OFFSET_Y = 16;
-	public static final int WIDTH = 240;
-	public static final int HEIGHT = 480;
 	public static final Rectangle FRAME = new Rectangle(
 			OFFSET_X - 2, 
 			OFFSET_Y - 2, 
