@@ -74,7 +74,7 @@ public class TetrisGameUI extends JFrame {
 	//default constructor
 	public TetrisGameUI() {
 		//start the game
-		game = new TetrisGame(10, 20, 200, 5, 1);
+		game = new TetrisGame(10, 20, 50, 5, 1);
 
 		//create game UI components
 		playArea = new PlayArea(game);
@@ -214,13 +214,17 @@ public class TetrisGameUI extends JFrame {
 		gameUpdateTimer = new Timer();
 		gameUpdateTimer.schedule(new TimerTask() {
 	        public void run() {
+	        	if (game.isOver()) {
+		            this.cancel();
+					System.exit(0);
+	        	}
+	        	
 	            game.update();
 	            repaint();
 	            
 	            if (gameUpdateInterval != game.getUpdateInterval()) {
 	            	gameUpdateInterval = game.getUpdateInterval();
 		            this.cancel();
-		            
 		            startGameUpdateTimer();
 	            }
 	        }

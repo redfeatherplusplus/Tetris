@@ -41,6 +41,7 @@ public class TetrisGame {
 	protected int lines;
 	protected int score;
 	protected boolean paused;
+	protected boolean over;
 	
 	//default constructor
 	public TetrisGame() { }
@@ -102,13 +103,13 @@ public class TetrisGame {
 	private Tetromino nextTetrominoInBag(Point position) {
 		if (0 == bag.size()) {
 			//bag is empty, re-fill and re-randomize bag
-			//bag.add(new I_Mino((Point) position.clone()));
-			//bag.add(new J_Mino((Point) position.clone()));
-			//bag.add(new L_Mino((Point) position.clone()));
+			bag.add(new I_Mino((Point) position.clone()));
+			bag.add(new J_Mino((Point) position.clone()));
+			bag.add(new L_Mino((Point) position.clone()));
 			bag.add(new O_Mino((Point) position.clone()));
-			//bag.add(new S_Mino((Point) position.clone()));
-			//bag.add(new T_Mino((Point) position.clone()));
-			//bag.add(new Z_Mino((Point) position.clone()));
+			bag.add(new S_Mino((Point) position.clone()));
+			bag.add(new T_Mino((Point) position.clone()));
+			bag.add(new Z_Mino((Point) position.clone()));
 
 			Collections.shuffle(bag, new Random(System.nanoTime()));
 		}
@@ -156,8 +157,16 @@ public class TetrisGame {
 		for (Block block : blocks) {
 			block.getPosition().x += tetromino.getPosition().x;
 			block.getPosition().y += tetromino.getPosition().y;
+			int x = block.getPosition().x;
+			int y = block.getPosition().y;
 			
-			playArea[block.getPosition().y][block.getPosition().x] = block;
+			if (null == playArea[y][x]) {
+				playArea[y][x] = block;
+			}
+			else {
+				playArea[y][x] = block;
+				over = true;
+			}
 		}
 		
 		handleFilledLines();
@@ -362,5 +371,11 @@ public class TetrisGame {
 	}
 	public void setPlayAreaHeight(int playAreaHeight) {
 		this.playAreaHeight = playAreaHeight;
+	}
+	public boolean isOver() {
+		return over;
+	}
+	public void setOver(boolean over) {
+		this.over = over;
 	}
 }
