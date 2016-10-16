@@ -34,7 +34,7 @@ public class TetrisGame {
 	
 	//metagame data
 	protected long updateInterval;
-	protected int linesToNextLevel;
+	protected int linesPerLevel;
 	protected int scoreMultiplier;
 	
 	protected int level;
@@ -48,7 +48,7 @@ public class TetrisGame {
 
 	//constructor with game setting args
 	public TetrisGame(int playAreaWidth, int playAreaHeight, 
-			long updateInterval, int linesToNextLevel, int scoreMultiplier) {
+			long updateInterval, int linesPerLevel, int scoreMultiplier) {
 		this.playAreaHeight = playAreaHeight;
 		this.playAreaWidth = playAreaWidth;
 		tetrominoWidth = 2;
@@ -62,7 +62,7 @@ public class TetrisGame {
 		ghost = generateGhost();
 		
 		this.updateInterval = updateInterval;
-		this.linesToNextLevel = linesToNextLevel;
+		this.linesPerLevel = linesPerLevel;
 		this.scoreMultiplier = scoreMultiplier;
 		
 		level = 1;
@@ -88,7 +88,7 @@ public class TetrisGame {
 			int linesCleared = this.lines - state.getLines();
 			score += level * scoreMultiplier * linesCleared;
 		}
-		if (lines >= linesToNextLevel * level) {
+		if (lines >= linesPerLevel * level) {
 			level++;
 		}
 		if (this.level != state.getLevel()) {

@@ -11,6 +11,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -72,9 +73,14 @@ public class TetrisGameUI extends JFrame {
 	}
 
 	//default constructor
-	public TetrisGameUI() {
+	public TetrisGameUI() { this(10, 20, 200, 5, 1); }
+
+	//constructor with game setting args
+	public TetrisGameUI(int playAreaWidth, int playAreaHeight, 
+			long updateInterval, int linesPerLevel, int scoreMultiplier) {
 		//start the game
-		game = new TetrisGame(10, 20, 200, 5, 1);
+		game = new TetrisGame(playAreaWidth, playAreaHeight, 
+				updateInterval, linesPerLevel, scoreMultiplier);
 
 		//create game UI components
 		playArea = new PlayArea(game);
@@ -121,7 +127,8 @@ public class TetrisGameUI extends JFrame {
 		//create and start a timer to periodically update the game
 		startGameUpdateTimer();
 	}
-
+	
+	
 	//adds mouse listeners and mouse pressed events to the content pane
 	private void addMouseEvents() {
 		
@@ -221,7 +228,7 @@ public class TetrisGameUI extends JFrame {
 		});
 	}
 	
-	//starts or updates game timer
+	//starts or restarts game timer
 	private void startGameUpdateTimer() {
 		gameUpdateInterval = game.getUpdateInterval();
 		
@@ -229,6 +236,8 @@ public class TetrisGameUI extends JFrame {
 		gameUpdateTimer.schedule(new TimerTask() {
 	        public void run() {
 	        	if (game.isOver()) {
+		            JOptionPane.showMessageDialog(null, "Game Over!");
+		            
 		            this.cancel();
 					System.exit(0);
 	        	}
@@ -239,6 +248,7 @@ public class TetrisGameUI extends JFrame {
 	            if (gameUpdateInterval != game.getUpdateInterval()) {
 	            	gameUpdateInterval = game.getUpdateInterval();
 		            this.cancel();
+		            
 		            startGameUpdateTimer();
 	            }
 	        }
